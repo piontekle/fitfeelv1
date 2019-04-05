@@ -1,0 +1,29 @@
+{
+  "name": "fitfeel",
+  "version": "1.0.0",
+  "description": "App to check-in mentally before and after workouts.",
+  "main": "server.js",
+  "scripts": {
+    "test": "export NODE_ENV=test && jasmine",
+    "start": "node server.js",
+    "client": "cd client && npm run start",
+    "server": "nodemon server.js",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/piontekle/fitfeel.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/piontekle/fitfeel/issues"
+  },
+  "homepage": "https://github.com/piontekle/fitfeel#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
