@@ -23,9 +23,5 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ],
-  "devDependencies": {
-    "jasmine": "^3.4.0",
-    "request": "^2.88.0"
-  }
+  ]
 }

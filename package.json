@@ -8,7 +8,8 @@
     "start": "node server.js",
     "client": "cd client && npm run start",
     "server": "nodemon server.js",
-    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\""
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install & npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,11 +20,18 @@
   "bugs": {
     "url": "https://github.com/piontekle/fitfeel/issues"
   },
-  "homepage": "https://github.com/piontekle/fitfeel#readme",
+  "homepage": "https://github.com/piontekle/fitfeel",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "pg": "^7.9.0",
+    "pg-hstore": "^2.3.2",
+    "react": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "sequelize": "^5.2.12"
   },
   "devDependencies": {
-    "concurrently": "^4.1.0"
+    "concurrently": "^4.1.0",
+    "jasmine": "^3.4.0",
+    "request": "^2.88.0"
   }
 }
