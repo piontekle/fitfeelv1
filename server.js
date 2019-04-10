@@ -1,20 +1,24 @@
-const express = require("express");
-const app = express();
-const port = process.env.PORT || 5000;
+const app = require("./src/app");
+const http = require("http");
+const port = normalizePort(process.env.PORT || 5000);
+app.set("port", port);
 
-const path = require("path");
+const server = http.createServer(app);
 
-app.use(express.static(path.join(__dirname, 'client/build')));
+server.listen(port);
 
-app.get("/api/getList", (req, res) => {
-  var list = ["item1", "item2", "item3"];
-  res.json(list);
-  console.log("Sent list of items");
-});
+function normalizePort(val) {
+  const port = parseInt(val, 10);
+  if (isNaN(port)) {
+    return val;
+  }
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname+"/client/build/index.html"));
-});
+  if (port >= 0) {
+    return port;
+  }
+  return false;
+}
 
-app.listen(port);
-console.log(`App is listening on ${port}`);
+server.on("listening", () => {
+  console.log(`server is listening for requests on port ${server.address().port}`);
+})
