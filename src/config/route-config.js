@@ -1,8 +1,8 @@
 module.exports = {
   init(app) {
-    const staticController = require("../controllers/static");
+    const userRoutes = require("../routes/users");
 
-    app.use(staticController);
+    app.use(userRoutes)
   }
 
 }

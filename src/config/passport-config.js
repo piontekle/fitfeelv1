@@ -18,7 +18,7 @@ module.exports = {
           return done(null, false, {message: "Invalid email or password"});
         }
 
-        return done(null, user);
+        return done(null, user, {message: "user created"});
       })
     }));
 

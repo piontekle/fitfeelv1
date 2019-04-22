@@ -10,10 +10,11 @@ const passportConfig = require("./passport-config");
 
 module.exports = {
   init(app){
+    app.use(bodyParser.urlencoded({ extended: false }));
     app.use(bodyParser.json());
     app.use(helmet());
     app.use(cors());
-    app.use(morgan("combined"));
+    app.use(morgan("dev"));
     app.use(expressValidator());
     app.use(session({
       secret: process.env.cookieSecret,
