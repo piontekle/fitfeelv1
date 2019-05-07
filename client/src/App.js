@@ -9,6 +9,21 @@ import SignIn from './components/signIn';
 import Profile from './components/userProfile';
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {};
+    this.connectToServer = this.connectToServer.bind(this);
+  }
+
+  connectToServer() {
+    fetch('/');
+  }
+
+  componentDidMount() {
+    this.connectToServer();
+  }
+
   render() {
     const App = () => (
       <div className="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
