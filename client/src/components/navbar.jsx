@@ -13,7 +13,7 @@ class Navbar extends Component {
             <Link to="/" className="mdl-navigation__link">Home</Link>
             <Link to="/about-ff" className="mdl-navigation__link">About FitFeel</Link>
             <Link to="/sign-up" className="mdl-navigation__link">Sign Up</Link>
-            <Link to="/sign-in" class="mdl-navigation__link">Sign In</Link>
+            <Link to="/sign-in" className="mdl-navigation__link">Sign In</Link>
           </nav>
         </div>
       <div className="mdl-layout__drawer">
@@ -22,7 +22,7 @@ class Navbar extends Component {
           <Link to="/" className="mdl-navigation__link">Home</Link>
           <Link to="/about-ff" className="mdl-navigation__link">About FitFeel</Link>
           <Link to="/sign-up" className="mdl-navigation__link">Sign Up</Link>
-          <Link to="/sign-in" class="mdl-navigation__link">Sign In</Link>
+          <Link to="/sign-in" className="mdl-navigation__link">Sign In</Link>
         </nav>
       </div>
     </div>

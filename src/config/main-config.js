@@ -10,7 +10,7 @@ const passportConfig = require("./passport-config");
 
 module.exports = {
   init(app){
-    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     app.use(helmet());
     app.use(cors());
@@ -20,7 +20,7 @@ module.exports = {
       secret: process.env.cookieSecret,
       resave: false,
       saveUninitialized: false,
-      cookie: { maxAge: 1.21e+9 }
+      cookie: { maxAge: 1.29e+9 }
     }));
     app.use(flash());
     passportConfig.init(app);

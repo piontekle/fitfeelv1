@@ -12,12 +12,11 @@ module.exports = {
     passport.use(new LocalStrategy({
       usernameField: "username"
     }, (username, password, done) => {
-      User.findByPk({where: {username}})
+      User.findOne({where: {username: username}})
       .then((user) => {
         if (!user || !authHelper.comparePass(password, user.password)) {
-          return done(null, false, {message: "Invalid email or password"});
+          return done(null, false, {message: "Invalid username or password"});
         }
-
         return done(null, user, {message: "user created"});
       })
     }));
