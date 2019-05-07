@@ -5,11 +5,11 @@ class Home extends Component {
   render() {
     return (
       <div id="overview">
-        <section class="section--center mdl-grid mdl-card mdl-shadow--2dp">
-          <div class="mdl-card mdl-cell mdl-cell--12-col">
-            <div class="mdl-card__supporting-text ">
-              <h4 class="mdl-cell mdl-cell--12-col">Welcome to FitFeel</h4>
-              <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+        <section className="section--center mdl-grid mdl-card mdl-shadow--2dp">
+          <div className="mdl-card mdl-cell mdl-cell--12-col">
+            <div className="mdl-card__supporting-text ">
+              <h4 className="mdl-cell mdl-cell--12-col">Welcome to FitFeel</h4>
+              <div className="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                 An app to check-in mentally before & after workouts to keep your mind just as fit as your body.
               </div>
             </div>
@@ -21,8 +21,8 @@ class Home extends Component {
             </div>
           </div>
         </section>
-        <section class="section--footer mdl-color--white mdl-grid">
-            <div class="section__text mdl-cell mdl-cell--4-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+        <section className="section--footer mdl-color--white mdl-grid">
+            <div className="section__text mdl-cell mdl-cell--4-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
               <h5 className="mdl-cell mdl-cell--12-col">Users</h5>
             </div>
             <div className="mdl-card__actions">

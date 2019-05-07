@@ -1,22 +1,6 @@
 import React, { Component } from 'react';
 
 class About extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      list: []
-    }
-  }
-
-  componentDidMount() {
-    this.getList();
-  }
-
-  getList = () => {
-    fetch('/about')
-    .then(res => res.json())
-    .then(list => this.setState({ list }))
-  }
 
   render() {
 
