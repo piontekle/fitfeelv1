@@ -2,6 +2,7 @@ require("dotenv").config();
 const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser")
 const cors = require("cors");
 const morgan = require("morgan");
 const session = require("express-session");
@@ -10,14 +11,23 @@ const passportConfig = require("./passport-config");
 
 module.exports = {
   init(app){
-    app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
-    app.use(express.static(path.join(__dirname, 'client/build')));
+    app.use(bodyParser.urlencoded({ extended: false }));
+    app.use(function(req, res, next) {
+      res.setHeader("Access-Control-Allow-Origin", "*");
+      res.setHeader("Access-Control-Allow-Headers", "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+      res.setHeader("Access-Control-Allow-Credentials", "true");
+      res.setHeader("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
+
+      next();
+    })
+    app.use(cookieParser());
+    app.use(express.static(path.join(__dirname, '../client/build')));
     if(process.env.NODE_ENV === 'production') {
-      app.use(express.static(path.join(__dirname, 'client/build')));
+      app.use(express.static(path.join(__dirname, '../client/build')));
 
       app.get('*', (req, res) => {
-        res.sendfile(path.join(__dirname = 'client/build/index.html'));
+        res.sendfile(path.join(__dirname = '../client/build/index.html'));
       })
     }
     app.get('*', (req, res) => {
