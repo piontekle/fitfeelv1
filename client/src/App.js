@@ -19,8 +19,20 @@ class App extends Component {
   }
 
   connectToServer() {
-
     fetch('/');
+  }
+
+  getURL() {
+    let host = window.location.hostname;
+    let protocol = window.location.protocol;
+    let url = null;
+
+    if (host === "localhost") {
+      url = protocol + "//" + host + ":5000"
+    } else {
+      url = protocol + "//" + host
+    }
+    return url;
   }
 
   componentDidMount() {
@@ -42,7 +54,7 @@ class App extends Component {
                   <Route path='/about-ff' component={About}/>
                   <Route path='/sign-up' component={SignUp}/>
                   <Route path='/sign-in' component={SignIn}/>
-                  <Route path='/user/:username' component={Profile}/>
+                  <Route path='/user/:slug' component={Profile}/>
                 </Switch>
               </div>
             </main>
@@ -54,7 +66,7 @@ class App extends Component {
     return (
       <Switch>
         <App
-        url={this.state.url}
+        getURL={() => this.getURL()}
         />
       </Switch>
     );

@@ -37,8 +37,8 @@ module.exports = {
     app.use(expressValidator());
     app.use(session({
       secret: process.env.cookieSecret,
-      resave: false,
-      saveUninitialized: false,
+      resave: true,
+      saveUninitialized: true,
       cookie: { maxAge: 1.29e+9 }
     }));
     passportConfig.init(app);

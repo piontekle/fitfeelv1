@@ -22,7 +22,6 @@ class SignIn extends Component {
 
   signIn(e) {
     e.preventDefault();
-
     let host = window.location.hostname;
     let protocol = window.location.protocol;
     let url = null;
