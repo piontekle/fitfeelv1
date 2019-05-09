@@ -65,7 +65,7 @@ class SignIn extends Component {
         			<div className="mdl-card__title mdl-color--primary mdl-color-text--white">
         				<h2 className="mdl-card__title-text">FitFeel</h2>
         			</div>
-        	  	<div class="mdl-card__supporting-text">
+        	  	<div className="mdl-card__supporting-text">
         				<form id="signIn-form" onSubmit={ (e) => this.signIn(e)}>
         					<div className="mdl-textfield mdl-js-textfield">
         						<input

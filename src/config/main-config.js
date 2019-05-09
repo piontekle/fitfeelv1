@@ -1,6 +1,5 @@
 require("dotenv").config();
 const path = require("path");
-const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser")
 const cors = require("cors");
@@ -10,7 +9,7 @@ const expressValidator = require("express-validator");
 const passportConfig = require("./passport-config");
 
 module.exports = {
-  init(app){
+  init(app, express){
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(function(req, res, next) {
@@ -22,16 +21,16 @@ module.exports = {
       next();
     })
     app.use(cookieParser());
-    app.use(express.static(path.join(__dirname, '../client/build')));
+    app.use(express.static(path.join(__dirname, '../..', 'client/build')));
     if(process.env.NODE_ENV === 'production') {
-      app.use(express.static(path.join(__dirname, '../client/build')));
+      app.use(express.static(path.join(__dirname, '../..', 'client/build')));
 
       app.get('*', (req, res) => {
         res.sendfile(path.join(__dirname = 'client/build/index.html'));
       })
     }
     app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname+'../client/public/index.html'));
+      res.sendFile(path.join(__dirname+ '../../..' + '/client/public/index.html'));
     })
     app.use(cors());
     app.use(morgan("dev"));

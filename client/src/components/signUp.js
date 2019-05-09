@@ -86,13 +86,13 @@ class SignUp extends Component {
                   </div>
                   <div className="mdl-textfield mdl-js-textfield">
                     <input
-                    class="mdl-textfield__input"
+                    className="mdl-textfield__input"
                     type="text"
                     name="email"
                     value={email}
                     onChange={this.handleChange("email")}
                     />
-                    <label className="mdl-textfield__label" for="email">Email</label>
+                    <label className="mdl-textfield__label" htmlFor="email">Email</label>
                   </div>
                   <div className="mdl-textfield mdl-js-textfield">
                     <input
@@ -102,17 +102,17 @@ class SignUp extends Component {
                     value={password}
                     onChange={this.handleChange("password")}
                   />
-                    <label className="mdl-textfield__label" for="password">Password</label>
+                    <label className="mdl-textfield__label" htmlFor="password">Password</label>
                   </div>
                   <div className="mdl-textfield mdl-js-textfield">
                     <input
-                    class="mdl-textfield__input"
+                    className="mdl-textfield__input"
                     type="password"
                     name="passConfirm"
                     value={passwordConfirm}
                     onChange={this.handleChange("passwordConfirm")}
                     />
-                    <label className="mdl-textfield__label" for="passConfirm">Confirm Password</label>
+                    <label className="mdl-textfield__label" htmlFor="passConfirm">Confirm Password</label>
                   </div>
                   <div className="mdl-card__actions mdl-card--border">
                     <button className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Sign Up</button>
