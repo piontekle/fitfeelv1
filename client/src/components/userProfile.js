@@ -23,7 +23,6 @@ class Profile extends Component {
       });
     })
     .catch((err) => {
-      console.log(err.response.data);
       this.setState({
         error: true
       })

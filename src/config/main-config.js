@@ -1,8 +1,10 @@
 require("dotenv").config();
 const path = require("path");
+const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
+const session = require("express-session");
 const expressValidator = require("express-validator");
 const passportConfig = require("./passport-config");
 
@@ -13,7 +15,7 @@ module.exports = {
     app.use(express.static(path.join(__dirname, 'client/build')));
     if(process.env.NODE_ENV === 'production') {
       app.use(express.static(path.join(__dirname, 'client/build')));
-      //
+      
       app.get('*', (req, res) => {
         res.sendfile(path.join(__dirname = 'client/build/index.html'));
       })
