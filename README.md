@@ -68,8 +68,7 @@ _Coming soon_
 
 
 # Versioning
-<<<<<<< HEAD
-I use GitHub for versioning. For the versions available, see the tags on this repository.
+I use GitHub for versioning.
 
 # Author
 Lauren Piontek
@@ -79,4 +78,3 @@ I use GitHub for versioning.
 # Author
 Lauren Piontek
 
->>>>>>> sign-up-in
