@@ -20,7 +20,6 @@ module.exports = {
 
       next();
     })
-    app.use(cookieParser());
     app.use(express.static(path.join(__dirname, '../..', 'client/build')));
     if(process.env.NODE_ENV === 'production') {
       app.use(express.static(path.join(__dirname, '../..', 'client/build')));
@@ -36,10 +35,10 @@ module.exports = {
     app.use(morgan("dev"));
     app.use(expressValidator());
     app.use(session({
-      secret: 'keyboard cat',
-      resave: true,
-      saveUninitialized: true,
-      cookie: { maxAge: 1.29e+9 }
+      secret: process.env.DATABASE_URL,
+      resave: false,
+      saveUninitialized: false,
+      cookie: { maxAge: 1.21e+9 }
     }));
     passportConfig.init(app);
     app.use((req, res, next) => {
