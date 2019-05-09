@@ -22,6 +22,17 @@ class SignIn extends Component {
 
   signIn(e) {
     e.preventDefault();
+
+    let host = window.location.hostname;
+    let protocol = window.location.protocol;
+    let url = null;
+
+    if (host === "localhost") {
+      url = protocol + "//" + host + ":5000"
+    } else {
+      url = protocol + "//" + host
+    }
+
     const { username, password } = this.state;
 
     if (username === '' || password === '') {
@@ -31,7 +42,7 @@ class SignIn extends Component {
       });
     } else {
       axios
-      .post("http://localhost:5000/sign-in", {
+      .post(`${url}/sign-in`, {
         username,
         password
       })

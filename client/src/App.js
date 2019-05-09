@@ -12,11 +12,14 @@ class App extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      url : null
+    };
     this.connectToServer = this.connectToServer.bind(this);
   }
 
   connectToServer() {
+
     fetch('/');
   }
 
@@ -50,7 +53,9 @@ class App extends Component {
 
     return (
       <Switch>
-        <App />
+        <App
+        url={this.state.url}
+        />
       </Switch>
     );
   }

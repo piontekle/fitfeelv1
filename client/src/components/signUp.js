@@ -22,8 +22,21 @@ class SignUp extends Component {
     this.setState({ [value]: e.target.value });
   }
 
+
   signUp(e) {
     e.preventDefault();
+
+    let host = window.location.hostname;
+    let protocol = window.location.protocol;
+    let url = null;
+
+    if (host === "localhost") {
+      url = protocol + "//" + host + ":5000"
+    } else {
+      url = protocol + "//" + host
+    }
+
+
     const { username, email, password, passwordConfirm } = this.state;
     if (username === '' || email === '' || password === '') {
       this.setState({
@@ -33,7 +46,7 @@ class SignUp extends Component {
       })
     } else {
       axios
-      .post("http://localhost:5000/sign-up", {
+      .post(`${url}/sign-up`, {
         username,
         email,
         password,

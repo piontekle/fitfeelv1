@@ -14,7 +14,17 @@ class Profile extends Component {
   }
 
   async componentDidMount() {
-    await axios.get('http://localhost:5000/find-user', {
+    let host = window.location.hostname;
+    let protocol = window.location.protocol;
+    let url = null;
+
+    if (host === "localhost") {
+      url = protocol + "//" + host + ":5000"
+    } else {
+      url = protocol + "//" + host
+    }
+
+    await axios.get(`${url}/find-user`, {
       params: {username: this.props.match.params.username}
     })
     .then((response) => {
