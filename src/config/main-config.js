@@ -36,7 +36,7 @@ module.exports = {
     app.use(morgan("dev"));
     app.use(expressValidator());
     app.use(session({
-      secret: process.env.cookieSecret,
+      secret: 'keyboard cat',
       resave: true,
       saveUninitialized: true,
       cookie: { maxAge: 1.29e+9 }
