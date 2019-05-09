@@ -3,8 +3,6 @@ const path = require("path");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const morgan = require("morgan");
-const session = require("express-session");
-const flash = require("express-flash");
 const expressValidator = require("express-validator");
 const passportConfig = require("./passport-config");
 
