@@ -40,7 +40,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { username, checkIns, teammates } = this.state;
+    const { username, teammates } = this.state;
     return (
       <section id="user-profile">
         <section id="user" className="mdl-grid">
@@ -55,11 +55,9 @@ class Profile extends Component {
           <div className="mdl-cell mdl-cell--8-col">
             <h4 id="teammates-h">Teammates</h4>
             <li>
-                if (teammates === []) {
-                  <p>No teammates yet!</p>
-                } else {
-                  <p>teammates not set up</p>
-                }
+                {
+                  teammates === [] ? (<p>No teammates yet!</p>) : (<p>teammates not set up</p>)
+              }
             </li>
           </div>
         </section>

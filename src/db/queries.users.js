@@ -26,6 +26,7 @@ module.exports = {
         callback(404);
       } else {
         result["user"] = user;
+        console.log("user is: " + result.user.username)
       }
     })
     .catch((err) => {

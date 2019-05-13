@@ -13,7 +13,8 @@ class App extends Component {
     super(props);
 
     this.state = {
-      url : null
+      url : null,
+      loggedIn: false
     };
     this.connectToServer = this.connectToServer.bind(this);
   }
@@ -33,6 +34,10 @@ class App extends Component {
       url = protocol + "//" + host
     }
     return url;
+  }
+
+  toggleLoggedIn() {
+    this.setState({ loggedIn: !this.state.loggedIn});
   }
 
   componentDidMount() {
@@ -67,6 +72,8 @@ class App extends Component {
       <Switch>
         <App
         getURL={() => this.getURL()}
+        loggedIn={this.state.loggedIn}
+        toggleLoggedIn={() => this.toggleLoggedIn()}
         />
       </Switch>
     );

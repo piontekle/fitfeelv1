@@ -47,13 +47,12 @@ class SignIn extends Component {
       })
       .then(response => {
         this.setState({
-          loggedIn: true,
+          loggedIn: this.props.loggedIn,
           showError: false
         })
-        console.log(this.state.loggedIn)
       })
       .catch(err => {
-        if(err.response.data === "Invalid username or password") {
+        if(err.data.message === "Invalid username or password") {
           this.setState = {
             messageFromServer: err.data.message,
             showError: true,

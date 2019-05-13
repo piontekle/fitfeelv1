@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
+
   render() {
 
     return(
@@ -21,8 +22,11 @@ class Navbar extends Component {
         <nav className="mdl-navigation">
           <Link to="/" className="mdl-navigation__link">Home</Link>
           <Link to="/about-ff" className="mdl-navigation__link">About FitFeel</Link>
-          <Link to="/sign-up" className="mdl-navigation__link">Sign Up</Link>
-          <Link to="/sign-in" className="mdl-navigation__link">Sign In</Link>
+          {
+            this.props.loggedIn ? (<Link to="/sign-out" className="mdl-navigation__link">Sign In</Link>) :
+            (<div><Link to="/sign-up" className="mdl-navigation__link">Sign Up</Link>
+            <Link to="/sign-in" className="mdl-navigation__link">Sign In</Link></div>)
+          }
         </nav>
       </div>
     </div>

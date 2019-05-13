@@ -46,7 +46,12 @@ app.get("/find-user", (req, res, next) => {
     if (err || result.user === undefined) {
       res.status(401).send({message: 'No user found.'});
     } else {
-      res.status(200).send({message: 'User found'});
+      res.status(200).send({
+        username: result.user.username,
+        email: result.user.email,
+        password: result.user.password,
+        message: 'User found'
+      });
     }
   })
 })
