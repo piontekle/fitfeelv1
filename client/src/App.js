@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Switch} from 'react-router-dom';
 import './App.css';
+import Routes from './Routes';
 import Navbar from './components/navbar';
-import Home from './components/home';
-import About from './components/about';
-import SignUp from './components/signUp';
-import SignIn from './components/signIn';
-import Profile from './components/userProfile';
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +32,7 @@ class App extends Component {
   }
 
   toggleLoggedIn() {
+    console.log("****toggling*****")
     this.setState({ loggedIn: !this.state.loggedIn});
   }
 
@@ -45,7 +41,7 @@ class App extends Component {
   }
 
   render() {
-    const App = () => (
+    return (
       <div className="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
         <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
           <header className="mdl-layout__header">
@@ -54,29 +50,14 @@ class App extends Component {
           <div className="mdl-layout mdl-js-layout mdl-color--grey-100">
             <main className="mdl-layout__content">
               <div className="page-content">
-                <Switch>
-                  <Route exact path='/' component={Home}/>
-                  <Route path='/about-ff' component={About}/>
-                  <Route path='/sign-up' component={SignUp}/>
-                  <Route path='/sign-in' component={SignIn}/>
-                  <Route path='/user/:slug' component={Profile}/>
-                </Switch>
+                <Routes />
+
               </div>
             </main>
           </div>
         </div>
       </div>
     )
-
-    return (
-      <Switch>
-        <App
-        getURL={() => this.getURL()}
-        loggedIn={this.state.loggedIn}
-        toggleLoggedIn={() => this.toggleLoggedIn()}
-        />
-      </Switch>
-    );
   }
 }
 

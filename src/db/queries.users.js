@@ -18,15 +18,14 @@ module.exports = {
       callback(err);
     })
   },
-  findUser(id, callback) {
+  findUser(username, callback) {
     let result = {};
-    User.findByPk(id)
+    User.findOne({where: {username: username}})
     .then((user) => {
       if(!user) {
         callback(404);
       } else {
         result["user"] = user;
-        console.log("user is: " + result.user.username)
       }
     })
     .catch((err) => {

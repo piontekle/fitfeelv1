@@ -42,7 +42,8 @@ app.post("/sign-out", (req, res, next) => {
 })
 
 app.get("/find-user", (req, res, next) => {
-  userQueries.findUser(req.params.id, (err, result) => {
+  console.log("***finding user****")
+  userQueries.findUser(req.params, (err, result) => {
     if (err || result.user === undefined) {
       res.status(401).send({message: 'No user found.'});
     } else {

@@ -6,7 +6,8 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      username: '',
+      username: this.props.location.state.username,
+      loggedIn: this.props.location.state.loggedIn,
       checkIns: [],
       teammates: [],
       error: false
@@ -25,9 +26,10 @@ class Profile extends Component {
     }
 
     await axios.get(`${url}/find-user`, {
-      params: {username: this.props.match.params.username}
+      params: {username: this.state.username}
     })
     .then((response) => {
+      console.log("username is:" + this.props.math.params.slug)
       this.setState({
         username: response.data.username
       });

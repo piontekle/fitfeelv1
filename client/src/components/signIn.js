@@ -40,21 +40,22 @@ class SignIn extends Component {
         inputInvalid: true
       });
     } else {
-      axios
-      .post(`${url}/sign-in`, {
+      axios.post(`${url}/sign-in`, {
         username,
         password
       })
       .then(response => {
+        console.log("logged in?: " + this.props.loggedIn)
         this.setState({
-          loggedIn: this.props.loggedIn,
+          loggedIn: true,
           showError: false
         })
       })
       .catch(err => {
-        if(err.data.message === "Invalid username or password") {
+        console.log("err is " + err)
+        if(err === "Invalid username or password") {
           this.setState = {
-            messageFromServer: err.data.message,
+            messageFromServer: err,
             showError: true,
             loginError: true
           }
@@ -97,7 +98,7 @@ class SignIn extends Component {
         						<label className="mdl-textfield__label" htmlFor="password">Password</label>
         					</div>
                   <div className="mdl-card__actions mdl-card--border">
-            				<button className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Log in</button>
+            				<button className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onClick={this.props.toggleLoggedIn} type="submit">Log in</button>
             			</div>
         				</form>
         			</div>
@@ -107,7 +108,13 @@ class SignIn extends Component {
       )
     }
 
-    return <Redirect to={`/user/${username}`} />
+    return <Redirect to={{
+      pathname: `/user/${username}`,
+      state: {
+        loggedIn: this.state.loggedIn,
+        username: username
+      }
+    }} />
   }
 
 }
