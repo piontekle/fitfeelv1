@@ -22,15 +22,7 @@ class SignIn extends Component {
 
   signIn(e) {
     e.preventDefault();
-    let host = window.location.hostname;
-    let protocol = window.location.protocol;
-    let url = null;
-
-    if (host === "localhost") {
-      url = protocol + "//" + host + ":5000"
-    } else {
-      url = protocol + "//" + host
-    }
+    let url = this.props.url;
 
     const { username, password } = this.state;
 
@@ -47,7 +39,7 @@ class SignIn extends Component {
       .then(response => {
         console.log("logged in?: " + this.props.loggedIn)
         this.setState({
-          loggedIn: true,
+          loggedIn: this.props.loggedIn,
           showError: false
         })
       })
@@ -98,7 +90,10 @@ class SignIn extends Component {
         						<label className="mdl-textfield__label" htmlFor="password">Password</label>
         					</div>
                   <div className="mdl-card__actions mdl-card--border">
-            				<button className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onClick={this.props.toggleLoggedIn} type="submit">Log in</button>
+            				<button
+                    className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
+                    onClick={() => {this.props.toggleLoggedIn(); this.props.getURL()}}
+                    type="submit">Log in</button>
             			</div>
         				</form>
         			</div>

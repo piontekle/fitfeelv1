@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router-dom';
 import './App.css';
-import Routes from './Routes';
 import Navbar from './components/navbar';
+import Home from './components/home';
+import About from './components/about';
+import SignUp from './components/signUp';
+import SignIn from './components/signIn';
+import Profile from './components/userProfile';
 
 class App extends Component {
   constructor(props) {
@@ -28,11 +33,11 @@ class App extends Component {
     } else {
       url = protocol + "//" + host
     }
-    return url;
+
+    this.setState({ url: url });
   }
 
   toggleLoggedIn() {
-    console.log("****toggling*****")
     this.setState({ loggedIn: !this.state.loggedIn});
   }
 
@@ -45,12 +50,31 @@ class App extends Component {
       <div className="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
         <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
           <header className="mdl-layout__header">
-                <Navbar />
+                <Navbar
+                loggedIn={this.state.loggedIn}
+                />
           </header>
           <div className="mdl-layout mdl-js-layout mdl-color--grey-100">
             <main className="mdl-layout__content">
               <div className="page-content">
-                <Routes />
+                <Switch>
+                  <Route exact path='/' component={Home}/>
+                  <Route path='/about-ff' component={About}/>
+                  <Route path='/sign-up'
+                  render={(props) =>
+                    <SignUp {...props} getURL={() => this.getURL()} />}
+                  />
+                  <Route path='/sign-in'
+                  render={(props) =>
+                    <SignIn {...props}
+                    getURL={() => this.getURL()}
+                    url={this.state.url}
+                    toggleLoggedIn={() => this.toggleLoggedIn()}
+                    loggedIn={this.state.loggedIn}
+                    />}
+                  />
+                  <Route path='/user/:slug' component={Profile}/>
+                </Switch>
 
               </div>
             </main>
