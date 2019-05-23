@@ -10,6 +10,7 @@ const passportConfig = require("./passport-config");
 
 module.exports = {
   init(app, express){
+    app.use(cors());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(function(req, res, next) {
@@ -28,9 +29,6 @@ module.exports = {
         res.sendfile(path.join(__dirname = 'client/build/index.html'));
       })
     }
-    app.get('*', (req, res) => {
-      res.sendFile(path.join(__dirname+ '../../..' + '/client/public/index.html'));
-    })
     app.use(cors());
     app.use(morgan("dev"));
     app.use(expressValidator());

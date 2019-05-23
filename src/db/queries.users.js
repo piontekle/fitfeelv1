@@ -27,8 +27,10 @@ module.exports = {
       } else {
         result["user"] = user;
       }
+      callback(null, result);
     })
     .catch((err) => {
+      console.log(err)
       callback(err);
     })
   }

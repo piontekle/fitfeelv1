@@ -36,14 +36,12 @@ app.post("/sign-in", (req, res, next) => {
 })
 
 app.post("/sign-out", (req, res, next) => {
-  console.log("****signing out****")
   req.logout();
   res.status(200).send({ message: 'user logged out'});
 })
 
 app.get("/find-user", (req, res, next) => {
-  console.log("***finding user****")
-  userQueries.findUser(req.params, (err, result) => {
+  userQueries.findUser(req.query.username, (err, result) => {
     if (err || result.user === undefined) {
       res.status(401).send({message: 'No user found.'});
     } else {

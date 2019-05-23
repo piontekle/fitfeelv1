@@ -1,6 +1,6 @@
 const request = require("request");
 const server = require("../../server");
-const base = "http://localhost:5000/users/";
+const base = "http://localhost:5000/";
 const User = require("../../src/db/models").User;
 const sequelize = require("../../src/db/models/index").sequelize;
 
@@ -16,10 +16,10 @@ describe("controllers : users", () => {
     })
   })
 
-  describe("POST /users", () => {
+  describe("POST /sign-up", () => {
     it("should create a user with valid values and redirect", (done) => {
       const options = {
-        url: base,
+        url: `${base}sign-up`,
         form: {
           username: "user123",
           email: "user@example.com",
@@ -28,7 +28,8 @@ describe("controllers : users", () => {
       }
 
       request.post(options, (err, res, body) => {
-        User.findByPk((user) => {
+        User.findOne({where: {username: "user123"}})
+        .then((user) => {
           expect(user).not.toBeNull();
           expect(user.username).toBe("user123");
           expect(user.email).toBe("user@example.com");
@@ -44,14 +45,14 @@ describe("controllers : users", () => {
 
     it("should not  create a new user with invalid attributes", (done) => {
       request.post({
-        url: base,
+        url: `${base}sign-up`,
         form: {
           username: "user123",
           email: "no",
           password: "123456"
         }
       }, (err, res, body) => {
-        User.findByPk({where: {email: "no"}})
+        User.findOne({where: {email: "no"}})
         .then((user) => {
           expect(user).toBeNull();
           done();
@@ -64,6 +65,5 @@ describe("controllers : users", () => {
     });
 
   });
-
 
 });

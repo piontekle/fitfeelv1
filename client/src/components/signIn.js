@@ -37,14 +37,12 @@ class SignIn extends Component {
         password
       })
       .then(response => {
-        console.log("logged in?: " + this.props.loggedIn)
         this.setState({
           loggedIn: this.props.loggedIn,
           showError: false
         })
       })
       .catch(err => {
-        console.log("err is " + err)
         if(err === "Invalid username or password") {
           this.setState = {
             messageFromServer: err,
@@ -107,7 +105,6 @@ class SignIn extends Component {
       pathname: `/user/${username}`,
       state: {
         loggedIn: this.state.loggedIn,
-        username: username
       }
     }} />
   }

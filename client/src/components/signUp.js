@@ -25,16 +25,7 @@ class SignUp extends Component {
 
   signUp(e) {
     e.preventDefault();
-
-    let host = window.location.hostname;
-    let protocol = window.location.protocol;
-    let url = null;
-
-    if (host === "localhost") {
-      url = protocol + "//" + host + ":5000"
-    } else {
-      url = protocol + "//" + host
-    }
+    let url = this.props.url;
 
 
     const { username, email, password, passwordConfirm } = this.state;
@@ -128,7 +119,7 @@ class SignUp extends Component {
                     <label className="mdl-textfield__label" htmlFor="passConfirm">Confirm Password</label>
                   </div>
                   <div className="mdl-card__actions mdl-card--border">
-                    <button className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" type="submit">Sign Up</button>
+                    <button className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onClick={this.props.getURL} type="submit">Sign Up</button>
                   </div>
                 </form>
               </div>

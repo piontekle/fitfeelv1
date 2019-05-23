@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
+import axios from 'axios';
 import './App.css';
 import Navbar from './components/navbar';
 import Home from './components/home';
@@ -7,6 +8,7 @@ import About from './components/about';
 import SignUp from './components/signUp';
 import SignIn from './components/signIn';
 import Profile from './components/userProfile';
+
 
 class App extends Component {
   constructor(props) {
@@ -41,19 +43,48 @@ class App extends Component {
     this.setState({ loggedIn: !this.state.loggedIn});
   }
 
+  logout = (e) => {
+    e.preventDefault();
+    axios.post(`${this.state.url}/sign-out`)
+    .then(response => {
+      this.toggleLoggedIn();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+  }
+
   componentDidMount() {
     this.connectToServer();
   }
 
   render() {
+    const { loggedIn, url } = this.state;
     return (
       <div className="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
         <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
           <header className="mdl-layout__header">
                 <Navbar
-                loggedIn={this.state.loggedIn}
+                loggedIn={loggedIn}
+                logout={(e) => this.logout(e)}
                 />
           </header>
+          <div className="mdl-layout__drawer">
+            <span className="mdl-layout-title">FitFeel</span>
+            <nav className="mdl-navigation">
+              <Link to="/" className="mdl-navigation__link">Home</Link>
+              <Link to="/about-ff" className="mdl-navigation__link">About FitFeel</Link>
+              {
+                this.state.loggedIn ? (<Link to="/sign-out" className="mdl-navigation__link" onClick={(e) => this.logout(e)}>Sign Out</Link>) :
+                (<><Link to="/sign-up" className="mdl-navigation__link">Sign Up</Link>
+                <Link to="/sign-in" className="mdl-navigation__link">Sign In</Link></>)
+              }
+            </nav>
+          </div>
+          <div className="mdl-layout__drawer-button"
+            role="button" aria-expanded="false">
+            <i className="material-icons">menu</i>
+          </div>
           <div className="mdl-layout mdl-js-layout mdl-color--grey-100">
             <main className="mdl-layout__content">
               <div className="page-content">
@@ -62,20 +93,22 @@ class App extends Component {
                   <Route path='/about-ff' component={About}/>
                   <Route path='/sign-up'
                   render={(props) =>
-                    <SignUp {...props} getURL={() => this.getURL()} />}
+                    <SignUp {...props}
+                    getUrl={() => this.getURL()}
+                    url={url}
+                    />}
                   />
                   <Route path='/sign-in'
                   render={(props) =>
                     <SignIn {...props}
                     getURL={() => this.getURL()}
-                    url={this.state.url}
+                    url={url}
                     toggleLoggedIn={() => this.toggleLoggedIn()}
-                    loggedIn={this.state.loggedIn}
+                    loggedIn={loggedIn}
                     />}
                   />
                   <Route path='/user/:slug' component={Profile}/>
                 </Switch>
-
               </div>
             </main>
           </div>
