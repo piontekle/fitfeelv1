@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom'
 import axios from 'axios';
 
 class Profile extends Component {
@@ -7,7 +8,6 @@ class Profile extends Component {
 
     this.state = {
       username: this.props.match.params.slug,
-      loggedIn: this.props.location.state.loggedIn,
       checkIns: [],
       teammates: [],
       error: false
@@ -15,20 +15,11 @@ class Profile extends Component {
   }
 
   async componentDidMount() {
-    let host = window.location.hostname;
-    let protocol = window.location.protocol;
-    let url = null;
-
-    if (host === "localhost") {
-      url = protocol + "//" + host + ":5000"
-    } else {
-      url = protocol + "//" + host
-    }
+    let url=this.props.url;
 
 
     await axios.get(`${url}/find-user`, {
-      params: {username: this.props.match.params.slug},
-      headers: { 'Content-Type': 'application/json'}
+      params: {username: this.props.match.params.slug}
     })
     .then((response) => {
       this.setState({
@@ -45,18 +36,20 @@ class Profile extends Component {
 
   render() {
     const { username, teammates } = this.state;
+      if(!this.props.loggedIn){
+        return <Redirect to="/" />
+      }
+
       return (
         <section id="user-profile">
           <section id="user" className="mdl-grid">
-            <div className="mdl-cell mdl-cell--8-col">
+            <div className="mdl-cell mdl-cell--4-col">
               <h1 id="user-h">{username}</h1>
+              <div id="check-ins">
+                <p>CHECK INS WILL BE HERE</p>
+              </div>
             </div>
-          </section>
-          <section id="check-ins">
-            <p>CHECK INS WILL BE HERE</p>
-          </section>
-          <section id="teammates" className="mdl-grid">
-            <div className="mdl-cell mdl-cell--8-col">
+            <div className="mdl-cell mdl-cell--5-col">
               <h4 id="teammates-h">Teammates</h4>
               <li>
                   {

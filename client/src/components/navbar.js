@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 class Navbar extends Component {
+
   render() {
+
     return(
       <>
         <div className="mdl-layout__header-row">
@@ -11,7 +13,7 @@ class Navbar extends Component {
           <nav className="mdl-navigation">
             {
               this.props.loggedIn ?
-              <><Link to="/user/:slug" className="mdl-navigation__link">Home</Link>
+              <><Link to="/" className="mdl-navigation__link">Home</Link>
               <Link to="/sign-out" className="mdl-navigation__link" onClick={(e) => this.props.logout(e)}>Sign Out</Link></> :
               <><Link to="/" className="mdl-navigation__link">Home</Link>
               <Link to="/about-ff" className="mdl-navigation__link">About FitFeel</Link>

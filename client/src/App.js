@@ -16,7 +16,8 @@ class App extends Component {
 
     this.state = {
       url : null,
-      loggedIn: false
+      loggedIn: false,
+      username: ''
     };
     this.connectToServer = this.connectToServer.bind(this);
   }
@@ -41,6 +42,10 @@ class App extends Component {
 
   toggleLoggedIn() {
     this.setState({ loggedIn: !this.state.loggedIn});
+  }
+
+  setUsername(username) {
+    this.setState({username: username});
   }
 
   logout = (e) => {
@@ -89,7 +94,13 @@ class App extends Component {
             <main className="mdl-layout__content">
               <div className="page-content">
                 <Switch>
-                  <Route exact path='/' component={Home}/>
+                  <Route exact path='/'
+                  render={(props) =>
+                    <Home {...props}
+                    loggedIn={this.state.loggedIn}
+                    username={this.state.username}
+                    />}
+                  />
                   <Route path='/about-ff' component={About}/>
                   <Route path='/sign-up'
                   render={(props) =>
@@ -105,9 +116,16 @@ class App extends Component {
                     url={url}
                     toggleLoggedIn={() => this.toggleLoggedIn()}
                     loggedIn={loggedIn}
+                    setUsername={(username) => this.setUsername(username)}
                     />}
                   />
-                  <Route path='/user/:slug' component={Profile}/>
+                  <Route path='/user/:slug'
+                  render={(props) =>
+                    <Profile {...props}
+                    url={this.state.url}
+                    loggedIn={this.state.loggedIn}
+                    />}
+                  />
                 </Switch>
               </div>
             </main>
