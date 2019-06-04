@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
-/* import { Checkbox } from 'react-mdl'; */
+import Checkbox from '@material-ui/core/Checkbox';
+import Select from '@material-ui/core/Select';
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
 import axios from 'axios';
 
 class CheckIn extends Component {
@@ -26,6 +31,8 @@ class CheckIn extends Component {
   }
 
   handleFeelingClick(e) {
+    this.setState({ checked: e.target.checked });
+
     let feelings = this.state.feelings || [];
 
     if(e.target.checked) {
@@ -80,6 +87,16 @@ class CheckIn extends Component {
   render() {
     const { title, exercise, comment, checked, messageFromServer } = this.state;
 
+    const formStyle = {
+      selectBox: {
+        minWidth: 150,
+        marginBottom: 10
+      },
+      textField: {
+        width: 200
+      }
+    }
+
     if (messageFromServer === '') {
       return(
         <div className="mdl-grid">
@@ -91,99 +108,101 @@ class CheckIn extends Component {
               <div className="mdl-card__supporting-text">
                 <form id="checkInForm" onSubmit={ (e) => this.checkIn(e)}>
                   <div className="mdl-textfield mdl-js-textfield">
-                    <input
-                      className="mdl-textfield__input"
-                      type="text"
+                    <TextField
+                      className={formStyle.textField}
+                      label="Title"
                       name="title"
                       value={title}
                       onChange={this.handleChange("title")}
                     />
-                    <label className="mdl-textfield__label" htmlFor="title">Title</label>
-                  </div>
-                  <div className="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
-                    <label className="mdl-selectfield__label" htmlFor="exercise">Exercise
-                    <i className="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                      <select className="mdl-selectfield__input" name="exercise" id="exercise" value={exercise} onChange={this.handleChange("exercise")}>
-                        <option className="mdl-menu__item" value="Bike">Bike</option>
-                        <option className="mdl-menu__item" value="Hike">Hike</option>
-                        <option className="mdl-menu__item" value="Interval">Interval</option>
-                        <option className="mdl-menu__item" value="Meditation">Meditation</option>
-                        <option className="mdl-menu__item" value="Run">Run</option>
-                        <option className="mdl-menu__item" value="Swim">Swim</option>
-                        <option className="mdl-menu__item" value="Walk">Walk</option>
-                        <option className="mdl-menu__item" value="Weights">Weights</option>
-                        <option className="mdl-menu__item" value="Yoga">Yoga</option>
-                        <option className="mdl-menu__item" value="Other">Other</option>
-                      </select>
-                    </label>
                   </div>
                   <fieldset>
+                  <FormControl style={formStyle.selectBox}>
+                    <InputLabel htmlFor="exercise">Excercise</InputLabel>
+                    <Select
+                      value={exercise}
+                      onChange={this.handleChange("exercise")}
+                    >
+                    <MenuItem value=""><em>None</em></MenuItem>
+                    <MenuItem value="Bike">Bike</MenuItem>
+                    <MenuItem value="Hike">Hike</MenuItem>
+                    <MenuItem value="Interval">Interval</MenuItem>
+                    <MenuItem value="Meditation">Meditation</MenuItem>
+                    <MenuItem value="Run">Run</MenuItem>
+                    <MenuItem value="Swim">Swim</MenuItem>
+                    <MenuItem value="Walk">Walk</MenuItem>
+                    <MenuItem value="Weights">Weights</MenuItem>
+                    <MenuItem value="Yoga">Yoga</MenuItem>
+                    <MenuItem value="Other">Other</MenuItem>
+                    </Select>
+                  </FormControl>
+                  </fieldset>
+                  <fieldset>
                     <legend><b>I'm feeling:</b></legend>
-                    <input
-                    type="checkbox"
-                    name="feelings[]"
-                    className="mdl-checkbox__input"
-                    defaultChecked={checked}
-                    onChange={this.handleFeelingClick}
-                    value="Energized"/>
-                    <span className="mdl-checkbox__label"> Energized </span>
-                    <input
-                    type="checkbox"
-                    name="feelings[]"
-                    className="mdl-checkbox__input"
-                    defaultChecked={checked}
-                    onChange={this.handleFeelingClick}
-                    value="Happy"/>
-                    <span className="mdl-checkbox__label"> Happy </span><br/>
-                    <input
-                    type="checkbox"
-                    name="feelings[]"
-                    className="mdl-checkbox__input"
-                    defaultChecked={checked}
-                    onChange={this.handleFeelingClick}
-                    value="Slow"/>
-                    <span className="mdl-checkbox__label"> Slow </span>
-                    <input
-                    type="checkbox"
-                    name="feelings[]"
-                    className="mdl-checkbox__input"
-                    defaultChecked={checked}
-                    onChange={this.handleFeelingClick}
-                    value="Meh"/>
-                    <span className="mdl-checkbox__label"> Meh </span><br/>
-                    <input
-                    type="checkbox"
-                    name="feelings[]"
-                    className="mdl-checkbox__input"
-                    defaultChecked={checked}
-                    onChange={this.handleFeelingClick}
-                    value="Sad"/>
-                    <span className="mdl-checkbox__label"> Sad </span>
-                    <input
-                    type="checkbox"
-                    name="feelings[]"
-                    className="mdl-checkbox__input"
-                    defaultChecked={checked}
-                    onChange={this.handleFeelingClick}
-                    value="Tired"/>
-                    <span className="mdl-checkbox__label"> Tired </span><br/>
+                    <Checkbox
+                      name="feelings[]"
+                      className="mdl-checkbox__input"
+                      defaultChecked={checked}
+                      onChange={this.handleFeelingClick}
+                      value="Energized"
+                    />
+                    <span className="mdl-checkbox__label">Energized</span>
+                    <Checkbox
+                      style={formStyle.checkBox}
+                      name="feelings[]"
+                      className="mdl-checkbox__input"
+                      defaultChecked={checked}
+                      onChange={this.handleFeelingClick}
+                      value="Happy"
+                    />
+                    <span className="mdl-checkbox__label">Happy</span><br/>
+                    <Checkbox
+                      name="feelings[]"
+                      className="mdl-checkbox__input"
+                      defaultChecked={checked}
+                      onChange={this.handleFeelingClick}
+                      value="Slow"
+                    />
+                    <span className="mdl-checkbox__label">Slow</span>
+                    <Checkbox
+                      name="feelings[]"
+                      className="mdl-checkbox__input"
+                      defaultChecked={checked}
+                      onChange={this.handleFeelingClick}
+                      value="Meh"
+                    />
+                    <span className="mdl-checkbox__label">Meh</span><br/>
+                    <Checkbox
+                      name="feelings[]"
+                      className="mdl-checkbox__input"
+                      defaultChecked={checked}
+                      onChange={this.handleFeelingClick}
+                      value="Sad"
+                    />
+                    <span className="mdl-checkbox__label">Sad</span>
+                    <Checkbox
+                      name="feelings[]"
+                      className="mdl-checkbox__input"
+                      defaultChecked={checked}
+                      onChange={this.handleFeelingClick}
+                      value="Tired"
+                    />
+                    <span className="mdl-checkbox__label">Tired</span><br/>
                   </fieldset>
                   <div className="mdl-textfield mdl-js-textfield">
-                    <input
-                    className="mdl-textfield__input"
-                    type="textarea"
-                    name="comment"
-                    value={comment}
-                    onChange={this.handleChange("comment")}
+                    <TextField
+                      label="Comment..."
+                      name="comment"
+                      value={comment}
+                      onChange={this.handleChange("comment")}
+                      fullWidth
                     />
-                    <label className="mdl-textfield__label" htmlFor="comment">Comment...</label>
                   </div>
                   <div className="mdl-card__actions mdl-card--border">
                     <button className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onClick={this.props.getURL} type="submit">Check In</button>
                   </div>
                 </form>
               </div>
-
             </div>
           </div>
         </div>
