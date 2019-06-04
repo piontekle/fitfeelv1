@@ -8,6 +8,7 @@ import About from './components/about';
 import SignUp from './components/signUp';
 import SignIn from './components/signIn';
 import Profile from './components/userProfile';
+import CheckIn from './components/checkIn';
 
 
 class App extends Component {
@@ -126,6 +127,7 @@ class App extends Component {
                     loggedIn={this.state.loggedIn}
                     />}
                   />
+                  <Route path='/check-in' component={CheckIn} />
                 </Switch>
               </div>
             </main>
