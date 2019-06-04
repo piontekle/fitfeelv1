@@ -17,23 +17,22 @@ class CheckIn extends Component {
       checkInError: false,
       inputInvalid: false
     }
+
+    this.handleFeelingClick = this.handleFeelingClick.bind(this);
   }
 
   handleChange = value => e => {
     this.setState({ [value]: e.target.value });
   }
 
-  handleClick(e) {
-    console.log("clicked");
+  handleFeelingClick(e) {
+    let feelings = this.state.feelings || [];
 
-    console.log("value is: " + e.target.value);
-    let feelings = this.state.feelings;
-
-    if(this.checked) {
+    if(e.target.checked) {
       feelings.push(e.target.value);
     } else {
       let i = feelings.indexOf(e.target.value);
-      feelings.slice(i, 0);
+      feelings.splice(i, 1);
     }
 
     this.setState({ feelings: feelings })
@@ -43,7 +42,7 @@ class CheckIn extends Component {
     e.preventDefault();
     let url = this.props.url;
 
-    const { title, exercise, feelings, comment, messageFromServer } = this.state;
+    const { title, exercise, feelings, comment } = this.state;
 
     if (title === '' || exercise === '' || feelings === '') {
       this.setState({
@@ -79,7 +78,7 @@ class CheckIn extends Component {
   }
 
   render() {
-    const { title, exercise, feelings, comment, checked, messageFromServer } = this.state;
+    const { title, exercise, comment, checked, messageFromServer } = this.state;
 
     if (messageFromServer === '') {
       return(
@@ -101,31 +100,73 @@ class CheckIn extends Component {
                     />
                     <label className="mdl-textfield__label" htmlFor="title">Title</label>
                   </div>
-                  <div className="mdl-textfield mdl-js-textfield mdl-textfield--floating-label getmdl-select">
-                    <input className="mdl-textfield__input" type="text" id="exercise" value={exercise} readOnly/>
-                    <input type="hidden" value={exercise} name="exercise" />
+                  <div className="mdl-selectfield mdl-js-selectfield mdl-selectfield--floating-label">
+                    <label className="mdl-selectfield__label" htmlFor="exercise">Exercise
                     <i className="mdl-icon-toggle__label material-icons">keyboard_arrow_down</i>
-                    <label className="mdl-textfield__label" htmlFor="exercise">Exercise</label>
-                    <ul htmlFor="exercise" className="mdl-menu mdl-menu--bottom-left mdl-js-menu">
-                      <li className="mdl-menu__item" value="Bike" onChange={this.handleChange("exercise")}>Bike</li>
-                      <li className="mdl-menu__item" data-val="Hike">Hike</li>
-                      <li className="mdl-menu__item" data-val="Interval">Interval</li>
-                      <li className="mdl-menu__item" data-val="Meditation">Meditation</li>
-                      <li className="mdl-menu__item" data-val="Run">Run</li>
-                      <li className="mdl-menu__item" data-val="Swim">Swim</li>
-                      <li className="mdl-menu__item" data-val="Walk">Walk</li>
-                      <li className="mdl-menu__item" data-val="Weights">Weights</li>
-                      <li className="mdl-menu__item" data-val="Yoga">Yoga</li>
-                      <li className="mdl-menu__item" data-val="Other">Other</li>
-                    </ul>
+                      <select className="mdl-selectfield__input" name="exercise" id="exercise" value={exercise} onChange={this.handleChange("exercise")}>
+                        <option className="mdl-menu__item" value="Bike">Bike</option>
+                        <option className="mdl-menu__item" value="Hike">Hike</option>
+                        <option className="mdl-menu__item" value="Interval">Interval</option>
+                        <option className="mdl-menu__item" value="Meditation">Meditation</option>
+                        <option className="mdl-menu__item" value="Run">Run</option>
+                        <option className="mdl-menu__item" value="Swim">Swim</option>
+                        <option className="mdl-menu__item" value="Walk">Walk</option>
+                        <option className="mdl-menu__item" value="Weights">Weights</option>
+                        <option className="mdl-menu__item" value="Yoga">Yoga</option>
+                        <option className="mdl-menu__item" value="Other">Other</option>
+                      </select>
+                    </label>
                   </div>
                   <fieldset>
                     <legend><b>I'm feeling:</b></legend>
-                    <label className="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" htmlFor="Energized">
-                        <input type="checkbox" name="feelings[]" className="mdl-checkbox__input" value="Energized"/>
-                        <span className="mdl-checkbox__label">Energized</span>
-                    </label>
-
+                    <input
+                    type="checkbox"
+                    name="feelings[]"
+                    className="mdl-checkbox__input"
+                    defaultChecked={checked}
+                    onChange={this.handleFeelingClick}
+                    value="Energized"/>
+                    <span className="mdl-checkbox__label"> Energized </span>
+                    <input
+                    type="checkbox"
+                    name="feelings[]"
+                    className="mdl-checkbox__input"
+                    defaultChecked={checked}
+                    onChange={this.handleFeelingClick}
+                    value="Happy"/>
+                    <span className="mdl-checkbox__label"> Happy </span><br/>
+                    <input
+                    type="checkbox"
+                    name="feelings[]"
+                    className="mdl-checkbox__input"
+                    defaultChecked={checked}
+                    onChange={this.handleFeelingClick}
+                    value="Slow"/>
+                    <span className="mdl-checkbox__label"> Slow </span>
+                    <input
+                    type="checkbox"
+                    name="feelings[]"
+                    className="mdl-checkbox__input"
+                    defaultChecked={checked}
+                    onChange={this.handleFeelingClick}
+                    value="Meh"/>
+                    <span className="mdl-checkbox__label"> Meh </span><br/>
+                    <input
+                    type="checkbox"
+                    name="feelings[]"
+                    className="mdl-checkbox__input"
+                    defaultChecked={checked}
+                    onChange={this.handleFeelingClick}
+                    value="Sad"/>
+                    <span className="mdl-checkbox__label"> Sad </span>
+                    <input
+                    type="checkbox"
+                    name="feelings[]"
+                    className="mdl-checkbox__input"
+                    defaultChecked={checked}
+                    onChange={this.handleFeelingClick}
+                    value="Tired"/>
+                    <span className="mdl-checkbox__label"> Tired </span><br/>
                   </fieldset>
                   <div className="mdl-textfield mdl-js-textfield">
                     <input

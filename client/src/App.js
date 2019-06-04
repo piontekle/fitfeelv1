@@ -127,7 +127,12 @@ class App extends Component {
                     loggedIn={this.state.loggedIn}
                     />}
                   />
-                  <Route path='/check-in' component={CheckIn} />
+                  <Route path='/check-in'
+                  render={(props) =>
+                    <CheckIn {...props}
+                    url={this.state.url}
+                    />}
+                  />
                 </Switch>
               </div>
             </main>
