@@ -3,11 +3,13 @@ const app = express();
 const checkInQueries = require("../db/queries.checkIns.js");
 
 app.post("/check-in", (req, res, next) => {
+  console.log("*****CHECKING IN****")
   let newCheckIn = {
     title: req.body.title,
     exercise: req.body.exercise,
     feelings: req.body.feelings,
-    comment: req.body.comment
+    comment: req.body.comment,
+    userId: req.body.userId
   }
 
   checkInQueries.addCheckIn(newCheckIn, (err, checkIn) => {
@@ -15,6 +17,7 @@ app.post("/check-in", (req, res, next) => {
       console.log(err)
       res.status(500).send({ message: err });
     } else {
+      console.log("check in created")
       res.status(303).send({ message: "check in created!"});
     }
   });

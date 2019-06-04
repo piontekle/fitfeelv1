@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 
 class Profile extends Component {
@@ -8,6 +8,7 @@ class Profile extends Component {
 
     this.state = {
       username: this.props.match.params.slug,
+      userId: '',
       checkIns: [],
       teammates: [],
       error: false
@@ -23,8 +24,11 @@ class Profile extends Component {
     })
     .then((response) => {
       this.setState({
-        username: response.data.username
+        username: response.data.username,
+        userId: response.data.id
       });
+      
+      this.props.setUser(this.state.username, this.state.userId);
     })
     .catch((err) => {
       console.log(err)
@@ -44,7 +48,12 @@ class Profile extends Component {
         <section id="user-profile">
           <section id="user" className="mdl-grid">
             <div className="mdl-cell mdl-cell--4-col">
-              <h1 id="user-h">{username}</h1>
+              <h3 id="user-h">{username}      <Link to="/check-in">
+                    <i className="material-icons">
+                    add_comment
+                    </i>
+                  </Link>
+              </h3>
               <div id="check-ins">
                 <p>CHECK INS WILL BE HERE</p>
               </div>

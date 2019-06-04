@@ -90,7 +90,7 @@ class SignIn extends Component {
                   <div className="mdl-card__actions mdl-card--border">
             				<button
                     className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect"
-                    onClick={() => {this.props.toggleLoggedIn(); this.props.getURL(); this.props.setUsername(this.state.username)}}
+                    onClick={() => {this.props.toggleLoggedIn(); this.props.getURL()}}
                     type="submit">Log in</button>
             			</div>
         				</form>

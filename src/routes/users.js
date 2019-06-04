@@ -49,6 +49,7 @@ app.get("/find-user", (req, res, next) => {
         username: result.user.username,
         email: result.user.email,
         password: result.user.password,
+        id: result.user.id,
         message: 'User found'
       });
     }

@@ -6,7 +6,8 @@ module.exports = {
       title: newCheckIn.title,
       exercise: newCheckIn.exercise,
       feelings: newCheckIn.feelings,
-      comment: newCheckIn.comment
+      comment: newCheckIn.comment,
+      userId: newCheckIn.userId
     })
     .then((checkIn) => {
       callback(null, checkIn);
@@ -16,7 +17,7 @@ module.exports = {
     })
   },
   getCheckIn(checkInTitle, callback){
-    return CheckIn.findByOne({where: {title: checkInTitle}})
+    return CheckIn.findOne({where: {title: checkInTitle}})
     .then((checkIn) => {
       callback(null, checkIn);
     })

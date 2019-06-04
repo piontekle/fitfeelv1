@@ -18,6 +18,7 @@ class App extends Component {
     this.state = {
       url : null,
       loggedIn: false,
+      userId: '',
       username: ''
     };
     this.connectToServer = this.connectToServer.bind(this);
@@ -45,8 +46,11 @@ class App extends Component {
     this.setState({ loggedIn: !this.state.loggedIn});
   }
 
-  setUsername(username) {
-    this.setState({username: username});
+  setUser(username, id) {
+    this.setState({
+      username: username,
+      userId: id
+    });
   }
 
   logout = (e) => {
@@ -117,7 +121,6 @@ class App extends Component {
                     url={url}
                     toggleLoggedIn={() => this.toggleLoggedIn()}
                     loggedIn={loggedIn}
-                    setUsername={(username) => this.setUsername(username)}
                     />}
                   />
                   <Route path='/user/:slug'
@@ -125,12 +128,14 @@ class App extends Component {
                     <Profile {...props}
                     url={this.state.url}
                     loggedIn={this.state.loggedIn}
+                    setUser={(username, id) => this.setUser(username, id)}
                     />}
                   />
                   <Route path='/check-in'
                   render={(props) =>
                     <CheckIn {...props}
                     url={this.state.url}
+                    userId={this.state.userId}
                     />}
                   />
                 </Switch>

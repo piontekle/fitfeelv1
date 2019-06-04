@@ -17,6 +17,7 @@ class CheckIn extends Component {
       exercise: '',
       feelings: [],
       comment: '',
+      userId: this.props.userId,
       checked: false,
       messageFromServer: '',
       checkInError: false,
@@ -49,7 +50,7 @@ class CheckIn extends Component {
     e.preventDefault();
     let url = this.props.url;
 
-    const { title, exercise, feelings, comment } = this.state;
+    const { title, exercise, feelings, comment, userId } = this.state;
 
     if (title === '' || exercise === '' || feelings === '') {
       this.setState({
@@ -61,7 +62,8 @@ class CheckIn extends Component {
         title,
         exercise,
         feelings,
-        comment
+        comment,
+        userId
       })
       .then((res) => {
         this.setState({
