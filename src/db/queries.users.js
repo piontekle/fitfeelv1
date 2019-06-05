@@ -1,4 +1,5 @@
 const User = require("./models").User;
+const CheckIn = require("./models").CheckIn;
 const bcrypt = require("bcryptjs");
 
 module.exports = {
@@ -26,12 +27,19 @@ module.exports = {
         callback(404);
       } else {
         result["user"] = user;
+        let id = user.id
+
+        CheckIn.scope({method: ["lastTenFor", id]}).findAll()
+        .then((checkIns) => {
+          result["checkIns"] = checkIns;
+
+          callback(null, result);
+        })
+        .catch((err) => {
+          console.log(err)
+          callback(err);
+        })
       }
-      callback(null, result);
-    })
-    .catch((err) => {
-      console.log(err)
-      callback(err);
     })
   }
 }

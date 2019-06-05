@@ -136,6 +136,7 @@ class App extends Component {
                     <CheckIn {...props}
                     url={this.state.url}
                     userId={this.state.userId}
+                    username={this.state.username}
                     />}
                   />
                 </Switch>

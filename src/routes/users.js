@@ -50,6 +50,7 @@ app.get("/find-user", (req, res, next) => {
         email: result.user.email,
         password: result.user.password,
         id: result.user.id,
+        checkIns: result.checkIns,
         message: 'User found'
       });
     }

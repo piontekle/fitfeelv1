@@ -18,7 +18,7 @@ app.post("/check-in", (req, res, next) => {
       res.status(500).send({ message: err });
     } else {
       console.log("check in created")
-      res.status(303).send({ message: "check in created!"});
+      res.status(200).send({ message: "check in created"});
     }
   });
 });

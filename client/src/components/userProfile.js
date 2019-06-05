@@ -22,12 +22,13 @@ class Profile extends Component {
     await axios.get(`${url}/find-user`, {
       params: {username: this.props.match.params.slug}
     })
-    .then((response) => {
+    .then((res) => {
       this.setState({
-        username: response.data.username,
-        userId: response.data.id
+        username: res.data.username,
+        userId: res.data.id,
+        checkIns: res.data.checkIns
       });
-      
+
       this.props.setUser(this.state.username, this.state.userId);
     })
     .catch((err) => {
@@ -39,7 +40,7 @@ class Profile extends Component {
   }
 
   render() {
-    const { username, teammates } = this.state;
+    const { username, teammates, checkIns } = this.state;
       if(!this.props.loggedIn){
         return <Redirect to="/" />
       }
@@ -48,14 +49,21 @@ class Profile extends Component {
         <section id="user-profile">
           <section id="user" className="mdl-grid">
             <div className="mdl-cell mdl-cell--4-col">
-              <h3 id="user-h">{username}      <Link to="/check-in">
-                    <i className="material-icons">
-                    add_comment
-                    </i>
-                  </Link>
-              </h3>
+              <h2 id="user-h">{username}</h2>
               <div id="check-ins">
+                <h4>Check Ins   <Link to="/check-in">
+                    <i className="material-icons">add_comment</i>
+                  </Link>
+                </h4>
                 <p>CHECK INS WILL BE HERE</p>
+                <ul>
+                  {
+                    checkIns ?
+                      checkIns.map((checkIn, i) =>
+                        <li key={i}> {checkIn.title} </li>
+                      ) : <li> No Check Ins yet! </li>
+                  }
+                </ul>
               </div>
             </div>
             <div className="mdl-cell mdl-cell--5-col">

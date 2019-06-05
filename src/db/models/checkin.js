@@ -21,5 +21,14 @@ module.exports = (sequelize, DataTypes) => {
       onDelete: "CASCADE"
     });
   };
+
+  CheckIn.addScope("lastTenFor", (userId) => {
+    return {
+      where: { userId: userId },
+      limit: 10,
+      order: [["createdAt", "DESC"]]
+    }
+  });
+
   return CheckIn;
 };

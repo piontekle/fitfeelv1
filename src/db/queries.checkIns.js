@@ -10,9 +10,11 @@ module.exports = {
       userId: newCheckIn.userId
     })
     .then((checkIn) => {
+      console.log("Check In Title: " + checkIn.title)
       callback(null, checkIn);
     })
     .catch((err) => {
+      console.log("******error is: " + err);
       callback(err);
     })
   },

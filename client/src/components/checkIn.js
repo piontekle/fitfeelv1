@@ -211,9 +211,8 @@ class CheckIn extends Component {
       )
     }
 
-    if (messageFromServer === 'user created') {
-        return <Redirect to="./sign-in" />;
-    }
+
+  return <Redirect to={`/user/${this.props.username}`} />
 
   }
 }
