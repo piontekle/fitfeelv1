@@ -111,7 +111,7 @@ class App extends Component {
                   <Route path='/sign-up'
                   render={(props) =>
                     <SignUp {...props}
-                    getUrl={() => this.getURL()}
+                    getURL={() => this.getURL()}
                     url={url}
                     />}
                   />
