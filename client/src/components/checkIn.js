@@ -92,10 +92,13 @@ class CheckIn extends Component {
     const formStyle = {
       selectBox: {
         minWidth: 150,
-        marginBottom: 10
+        marginBottom: 10,
       },
       textField: {
-        width: 200
+        width: 150
+      },
+      checkBox: {
+        color: "orange"
       }
     }
 
@@ -111,7 +114,7 @@ class CheckIn extends Component {
                 <form id="checkInForm" onSubmit={ (e) => this.checkIn(e)}>
                   <div className="mdl-textfield mdl-js-textfield">
                     <TextField
-                      className={formStyle.textField}
+                      style={formStyle.textField}
                       label="Title"
                       name="title"
                       value={title}
@@ -142,6 +145,7 @@ class CheckIn extends Component {
                   <fieldset>
                     <legend><b>I'm feeling:</b></legend>
                     <Checkbox
+                      style={formStyle.checkBox}
                       name="feelings[]"
                       className="mdl-checkbox__input"
                       defaultChecked={checked}
@@ -159,6 +163,7 @@ class CheckIn extends Component {
                     />
                     <span className="mdl-checkbox__label">Happy</span><br/>
                     <Checkbox
+                      style={formStyle.checkBox}
                       name="feelings[]"
                       className="mdl-checkbox__input"
                       defaultChecked={checked}
@@ -167,6 +172,7 @@ class CheckIn extends Component {
                     />
                     <span className="mdl-checkbox__label">Slow</span>
                     <Checkbox
+                      style={formStyle.checkBox}
                       name="feelings[]"
                       className="mdl-checkbox__input"
                       defaultChecked={checked}
@@ -175,6 +181,7 @@ class CheckIn extends Component {
                     />
                     <span className="mdl-checkbox__label">Meh</span><br/>
                     <Checkbox
+                      style={formStyle.checkBox}
                       name="feelings[]"
                       className="mdl-checkbox__input"
                       defaultChecked={checked}
@@ -183,6 +190,7 @@ class CheckIn extends Component {
                     />
                     <span className="mdl-checkbox__label">Sad</span>
                     <Checkbox
+                      style={formStyle.checkBox}
                       name="feelings[]"
                       className="mdl-checkbox__input"
                       defaultChecked={checked}

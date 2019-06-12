@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
+import TextField from '@material-ui/core/TextField';
 import axios from 'axios';
 
 class SignUp extends Component {
@@ -68,58 +69,66 @@ class SignUp extends Component {
   render() {
     const { username, email, password, passwordConfirm, messageFromServer } = this.state;
 
+    const formStyle = {
+      textField: {
+        width: 275
+      }
+    }
+
     if (messageFromServer === '') {
       return(
         <div className="mdl-grid">
-          <div className="section--center mdl-cell">
-            <div className="mdl-card mdl-shadow--6dp">
+          <div className="section--center mdl-grid mdl-card mdl-shadow--6dp">
+            <div className="mdl-card">
               <div className="mdl-card__title mdl-color--primary mdl-color-text--white">
                 <h2 className="mdl-card__title-text">FitFeel</h2>
               </div>
               <div className="mdl-card__supporting-text">
                 <form id="signUpForm" onSubmit={ (e) => this.signUp(e)}>
                   <div className="mdl-textfield mdl-js-textfield">
-                    <input
-                      className="mdl-textfield__input"
-                      type="text"
+                    <TextField
+                      style={formStyle.textField}
+                      label="Username"
                       name="username"
+                      autoComplete="username"
                       value={username}
                       onChange={this.handleChange("username")}
                     />
-                    <label className="mdl-textfield__label" htmlFor="username">Username</label>
                   </div>
                   <div className="mdl-textfield mdl-js-textfield">
-                    <input
-                    className="mdl-textfield__input"
-                    type="text"
-                    name="email"
-                    value={email}
-                    onChange={this.handleChange("email")}
+                    <TextField
+                      style={formStyle.textField}
+                      label="Email"
+                      name="email"
+                      autoComplete="email"
+                      value={email}
+                      onChange={this.handleChange("email")}
                     />
-                    <label className="mdl-textfield__label" htmlFor="email">Email</label>
                   </div>
                   <div className="mdl-textfield mdl-js-textfield">
-                    <input
-                    className="mdl-textfield__input"
-                    type="password"
-                    name="password"
-                    value={password}
-                    onChange={this.handleChange("password")}
-                  />
-                    <label className="mdl-textfield__label" htmlFor="password">Password</label>
-                  </div>
-                  <div className="mdl-textfield mdl-js-textfield">
-                    <input
-                    className="mdl-textfield__input"
-                    type="password"
-                    name="passConfirm"
-                    value={passwordConfirm}
-                    onChange={this.handleChange("passwordConfirm")}
+                    <TextField
+                      style={formStyle.textField}
+                      label="Password"
+                      name="password"
+                      type="password"
+                      autoComplete="new-password"
+                      value={password}
+                      onChange={this.handleChange("password")}
                     />
-                    <label className="mdl-textfield__label" htmlFor="passConfirm">Confirm Password</label>
+                  </div>
+                  <div className="mdl-textfield mdl-js-textfield">
+                    <TextField
+                      style={formStyle.textField}
+                      label="Confirm Password"
+                      name="passConfirm"
+                      type="password"
+                      autoComplete="new-password"
+                      value={passwordConfirm}
+                      onChange={this.handleChange("passwordConfirm")}
+                    />
                   </div>
                   <div className="mdl-card__actions mdl-card--border">
-                    <button className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onClick={this.props.getURL} type="submit">Sign Up</button>
+                    <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect" onClick={this.props.getURL} type="submit">Sign Up</button>
                   </div>
                 </form>
               </div>

@@ -9,6 +9,7 @@ import SignUp from './components/signUp';
 import SignIn from './components/signIn';
 import Profile from './components/userProfile';
 import CheckIn from './components/checkIn';
+import ShowCheckIn from './components/checkInShow';
 
 
 class App extends Component {
@@ -123,12 +124,18 @@ class App extends Component {
                     loggedIn={loggedIn}
                     />}
                   />
-                  <Route path='/user/:slug'
+                  <Route path='/user/:username'
                   render={(props) =>
                     <Profile {...props}
                     url={this.state.url}
                     loggedIn={this.state.loggedIn}
                     setUser={(username, id) => this.setUser(username, id)}
+                    />}
+                  />
+                  <Route path='/check-in/:title'
+                  render={(props) =>
+                    <ShowCheckIn {...props}
+                    url={this.state.url}
                     />}
                   />
                   <Route path='/check-in'

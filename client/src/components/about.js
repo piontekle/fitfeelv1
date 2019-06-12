@@ -15,7 +15,7 @@ class About extends Component {
         <section id="how" className="mdl-grid">
           <div className="mdl-cell mdl-cell--8-col">
             <h4 id="how-to-h">How?</h4>
-            <p>Before each workout, open FitFeel to answer a few quick questions about where you are mentally. You can simply check the boxes or elaborate - you can put as much time as you want or have into it. [picture of form] Then after your workout, check-in again to see how things have changed.[picutre of form]</p>
+            <p>Before each workout, open FitFeel to answer a few quick questions about where you are mentally. You can simply check the boxes or elaborate - you can put as much time as you want or have into it. [picture of form] Then after your workout, check-in again to see how things have changed.[picture of form]</p>
           </div>
         </section>
       </section>

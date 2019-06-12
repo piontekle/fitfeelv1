@@ -20,7 +20,7 @@ class Profile extends Component {
 
 
     await axios.get(`${url}/find-user`, {
-      params: {username: this.props.match.params.slug}
+      params: {username: this.props.match.params.username}
     })
     .then((res) => {
       this.setState({
@@ -40,39 +40,56 @@ class Profile extends Component {
   }
 
   render() {
-    const { username, teammates, checkIns } = this.state;
+    const { teammates, checkIns } = this.state;
       if(!this.props.loggedIn){
         return <Redirect to="/" />
+      }
+
+      const style = {
+        card: {
+          margin: "auto",
+          minWidth: 300
+        },
+        header: {
+          right: 25,
+          position: "absolute"
+        }
       }
 
       return (
         <section id="user-profile">
           <section id="user" className="mdl-grid">
-            <div className="mdl-cell mdl-cell--4-col">
-              <h2 id="user-h">{username}</h2>
-              <div id="check-ins">
-                <h4>Check Ins   <Link to="/check-in">
-                    <i className="material-icons">add_comment</i>
-                  </Link>
-                </h4>
-                <p>CHECK INS WILL BE HERE</p>
-                <ul>
-                  {
-                    checkIns ?
-                      checkIns.map((checkIn, i) =>
-                        <li key={i}> {checkIn.title} </li>
-                      ) : <li> No Check Ins yet! </li>
-                  }
-                </ul>
+            <div className="mdl-cell mdl-cell--5-col">
+              <div className="mdl-card mdl-shadow--6dp" style={style.card}>
+                <div id="check-ins">
+                <div className="mdl-card__title mdl-color--primary mdl-color-text--white">
+                  <h2 className="mdl-card__title-text">Check Ins   <Link to="/check-in">
+                      <i className="material-icons" style={style.header}>add_comment</i>
+                    </Link>
+                  </h2>
+                </div>
+                  <ul>
+                    {
+                      checkIns ?
+                        checkIns.map((checkIn) =>
+                          <li key={checkIn.title}><Link to={`/check-in/${checkIn.title}`}>{checkIn.title}</Link></li>
+                        ) : <li> No Check Ins yet! </li>
+                    }
+                  </ul>
+                </div>
               </div>
             </div>
             <div className="mdl-cell mdl-cell--5-col">
-              <h4 id="teammates-h">Teammates</h4>
-              <li>
-                  {
-                    teammates === [] ? (<p>No teammates yet!</p>) : (<p>teammates not set up</p>)
-                }
-              </li>
+              <div className="mdl-card mdl-shadow--6dp">
+                <div className="mdl-card__title mdl-color--primary mdl-color-text--white">
+                  <h2 id="user-h" className="mdl-card__title-text">Teammates</h2>
+                </div>
+                <ul>
+                    {
+                      teammates ? (<li>No teammates yet!</li>) : (<li>teammates not set up</li>)
+                  }
+                </ul>
+              </div>
             </div>
           </section>
         </section>
