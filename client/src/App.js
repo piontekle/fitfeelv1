@@ -141,6 +141,7 @@ class App extends Component {
                   <Route path='/check-in'
                   render={(props) =>
                     <CheckIn {...props}
+                    getURL={() => this.getURL()}
                     url={this.state.url}
                     userId={this.state.userId}
                     username={this.state.username}
