@@ -20,7 +20,7 @@ class Profile extends Component {
 
 
     await axios.get(`${url}/find-user`, {
-      params: {username: this.props.match.params.username}
+      params: {username: this.state.username}
     })
     .then((res) => {
       this.setState({
