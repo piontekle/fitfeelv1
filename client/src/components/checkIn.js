@@ -98,7 +98,7 @@ class CheckIn extends Component {
         width: 150
       },
       checkBox: {
-        color: "orange"
+        color: "rgb(255,140,0)"
       }
     }
 
