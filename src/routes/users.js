@@ -43,8 +43,14 @@ app.post("/sign-out", (req, res, next) => {
 app.get("/find-user", (req, res, next) => {
   userQueries.findUser(req.query.username, (err, result) => {
     if (err || result.user === undefined) {
+      console.log("************")
+      console.log("ERROR IS: " + err)
+      console.log("************")
       res.status(401).send({message: 'No user found.'});
     } else {
+      console.log("************")
+      console.log("Logged ID " + result.user.id)
+      console.log("************")
       res.status(200).send({
         username: result.user.username,
         email: result.user.email,
