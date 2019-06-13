@@ -30,7 +30,6 @@ class Profile extends Component {
       });
 
       this.props.setUser(this.state.username, this.state.userId);
-      console.log("User ID from profile: " + this.state.userId)
     })
     .catch((err) => {
       console.log(err)
@@ -64,7 +63,13 @@ class Profile extends Component {
               <div className="mdl-card mdl-shadow--6dp" style={style.card}>
                 <div id="check-ins">
                 <div className="mdl-card__title mdl-color--primary mdl-color-text--white">
-                  <h2 className="mdl-card__title-text">Check Ins   <Link to="/check-in">
+                  <h2 className="mdl-card__title-text">Check Ins
+                    <Link to={{
+                      pathname: "/check-in",
+                      state: {
+                        userId: this.state.userId
+                      }
+                    }}>
                       <i className="material-icons" style={style.header}>add_comment</i>
                     </Link>
                   </h2>

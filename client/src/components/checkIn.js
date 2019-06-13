@@ -17,7 +17,7 @@ class CheckIn extends Component {
       exercise: '',
       feelings: [],
       comment: '',
-      userId: this.props.userId,
+      userId: this.props.location.state.userId,
       checked: false,
       messageFromServer: '',
       checkInError: false,
@@ -49,8 +49,6 @@ class CheckIn extends Component {
   checkIn(e) {
     e.preventDefault();
     let url = this.props.url;
-
-    console.log("USER ID IS: " + this.state.userId)
 
     const { title, exercise, feelings, comment, userId } = this.state;
 
