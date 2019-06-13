@@ -3,6 +3,7 @@ const app = express();
 const checkInQueries = require("../db/queries.checkIns.js");
 
 app.post("/check-in", (req, res, next) => {
+  console.log("User ID: " + req.body.userId)
   let newCheckIn = {
     title: req.body.title,
     exercise: req.body.exercise,
