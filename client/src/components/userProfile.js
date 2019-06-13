@@ -30,6 +30,7 @@ class Profile extends Component {
       });
 
       this.props.setUser(this.state.username, this.state.userId);
+      console.log("State from profile: " + this.state.userId)
     })
     .catch((err) => {
       console.log(err)
