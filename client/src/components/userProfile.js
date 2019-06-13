@@ -17,6 +17,7 @@ class Profile extends Component {
 
   async componentDidMount() {
     let url=this.props.url;
+    console.log("URL is: " + url)
 
 
     await axios.get(`${url}/find-user`, {
