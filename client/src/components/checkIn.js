@@ -74,7 +74,8 @@ class CheckIn extends Component {
         });
       })
       .catch((err) => {
-        console.log(err.response.data)
+        console.log(this.state.userId);
+        console.log(err.response.data);
         if (err.response.data === "check in incomplete") {
           this.setState({
             showError: true,
@@ -209,7 +210,7 @@ class CheckIn extends Component {
                     />
                   </div>
                   <div className="mdl-card__actions mdl-card--border">
-                    <button className="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" onClick={this.props.getURL} type="submit">Check In</button>
+                    <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect" onClick={this.props.getURL} type="submit">Check In</button>
                   </div>
                 </form>
               </div>
