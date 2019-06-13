@@ -17,13 +17,13 @@ class Profile extends Component {
 
   async componentDidMount() {
     let url=this.props.url;
-    console.log("URL is: " + url)
 
 
     await axios.get(`${url}/find-user`, {
       params: {username: this.state.username}
     })
     .then((res) => {
+      console.log("setting user data")
       this.setState({
         username: res.data.username,
         userId: res.data.id,
@@ -31,7 +31,7 @@ class Profile extends Component {
       });
 
       this.props.setUser(this.state.username, this.state.userId);
-      console.log("UserId from profile: *" + res.data.id)
+      console.log("UserId from profile: * " + res.data.id)
     })
     .catch((err) => {
       console.log(err)
