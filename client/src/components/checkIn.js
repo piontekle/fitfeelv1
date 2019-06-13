@@ -74,7 +74,7 @@ class CheckIn extends Component {
         });
       })
       .catch((err) => {
-        console.log("UserId: " + userId)
+        console.log("UserId: " + this.props.location.state.userId)
         console.log(err.response.data);
         if (err.response.data === "check in incomplete") {
           this.setState({
