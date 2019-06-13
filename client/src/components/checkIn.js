@@ -17,7 +17,7 @@ class CheckIn extends Component {
       exercise: '',
       feelings: [],
       comment: '',
-      userId: this.props.location.state.userId,
+      userId: this.props.userId,
       checked: false,
       messageFromServer: '',
       checkInError: false,
@@ -25,6 +25,12 @@ class CheckIn extends Component {
     }
 
     this.handleFeelingClick = this.handleFeelingClick.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.userId !== prevProps.userId) {
+      this.fetchData(this.props.userId)
+    }
   }
 
   handleChange = value => e => {
@@ -50,8 +56,8 @@ class CheckIn extends Component {
     e.preventDefault();
     let url = this.props.url;
 
-    const { title, exercise, feelings, comment, userId } = this.state;
-
+    const { title, exercise, feelings, comment} = this.state;
+    let userId = this.props.userId;
     if (title === '' || exercise === '' || feelings === '') {
       this.setState({
         showError: true,
