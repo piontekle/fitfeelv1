@@ -17,7 +17,7 @@ class CheckIn extends Component {
       exercise: '',
       feelings: [],
       comment: '',
-      userId: this.props.location.state.userId,
+      userId: null,
       checked: false,
       messageFromServer: '',
       checkInError: false,
@@ -25,6 +25,12 @@ class CheckIn extends Component {
     }
 
     this.handleFeelingClick = this.handleFeelingClick.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      userId: this.props.location.state.userId
+    })
   }
 
 

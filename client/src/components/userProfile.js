@@ -7,7 +7,7 @@ class Profile extends Component {
     super(props);
 
     this.state = {
-      username: this.props.match.params.slug,
+      username: this.props.match.params.username,
       userId: '',
       checkIns: [],
       teammates: [],
@@ -30,7 +30,7 @@ class Profile extends Component {
       });
 
       this.props.setUser(this.state.username, this.state.userId);
-      console.log("State from profile: " + this.state.userId)
+      console.log("UserId from profile: " + res.data.id)
     })
     .catch((err) => {
       console.log(err)
