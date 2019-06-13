@@ -23,10 +23,8 @@ app.post("/check-in", (req, res, next) => {
 });
 
 app.get("/get-check-in", (req, res, next) => {
-  console.log("****GETTING CHECK-IN")
   checkInQueries.getCheckIn(req.query.title, (err, checkIn) => {
     if (err || checkIn === undefined) {
-      console.log("****ERR IS: " + err);
       res.status(401).send({message: 'No check in found.'});
     } else {
       res.status(200).send({
