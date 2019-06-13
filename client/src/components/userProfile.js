@@ -23,7 +23,6 @@ class Profile extends Component {
       params: {username: this.state.username}
     })
     .then((res) => {
-      console.log("setting user data")
       this.setState({
         username: res.data.username,
         userId: res.data.id,
@@ -31,7 +30,6 @@ class Profile extends Component {
       });
 
       this.props.setUser(this.state.username, this.state.userId);
-      console.log("UserId from profile: * " + res.data.id)
     })
     .catch((err) => {
       console.log(err)
