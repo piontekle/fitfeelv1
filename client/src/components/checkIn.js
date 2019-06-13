@@ -50,6 +50,8 @@ class CheckIn extends Component {
     e.preventDefault();
     let url = this.props.url;
 
+    console.log("USER ID IS: " + this.state.userId)
+
     const { title, exercise, feelings, comment, userId } = this.state;
 
     if (title === '' || exercise === '' || feelings === '') {
