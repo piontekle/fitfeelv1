@@ -30,7 +30,7 @@ class Profile extends Component {
       });
 
       this.props.setUser(this.state.username, this.state.userId);
-      console.log("UserId from profile: " + res.data.id)
+      console.log("UserId from profile: *" + res.data.id)
     })
     .catch((err) => {
       console.log(err)
