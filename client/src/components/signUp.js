@@ -53,9 +53,9 @@ class SignUp extends Component {
         });
       })
       .catch(err => {
-        console.log(err.response.data)
-        if (err.response.data === "Username or email already taken") {
+        if (err.response.data) {
           this.setState({
+            messageFromServer: err.response.data.message,
             showError: true,
             loginError: true,
             inputInvalid: false
@@ -88,44 +88,48 @@ class SignUp extends Component {
                   <div className="mdl-textfield mdl-js-textfield">
                     <TextField
                       style={formStyle.textField}
-                      label="Username"
+                      label="Username *"
                       name="username"
                       autoComplete="username"
                       value={username}
                       onChange={this.handleChange("username")}
                     />
+                    <small>at least 4 characters, no special characters</small>
                   </div>
                   <div className="mdl-textfield mdl-js-textfield">
                     <TextField
                       style={formStyle.textField}
-                      label="Email"
+                      label="Email *"
                       name="email"
                       autoComplete="email"
                       value={email}
                       onChange={this.handleChange("email")}
                     />
+                    <small>must be valid email</small>
                   </div>
                   <div className="mdl-textfield mdl-js-textfield">
                     <TextField
                       style={formStyle.textField}
-                      label="Password"
+                      label="Password *"
                       name="password"
                       type="password"
                       autoComplete="new-password"
                       value={password}
                       onChange={this.handleChange("password")}
                     />
+                    <small>at least 6 characters</small>
                   </div>
                   <div className="mdl-textfield mdl-js-textfield">
                     <TextField
                       style={formStyle.textField}
-                      label="Confirm Password"
+                      label="Confirm Password *"
                       name="passConfirm"
                       type="password"
                       autoComplete="new-password"
                       value={passwordConfirm}
                       onChange={this.handleChange("passwordConfirm")}
                     />
+                    <small>must match above password</small>
                   </div>
                   <div className="mdl-card__actions mdl-card--border">
                     <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect" onClick={this.props.getURL} type="submit">Sign Up</button>

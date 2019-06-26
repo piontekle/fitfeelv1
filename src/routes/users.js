@@ -11,17 +11,28 @@ app.post("/sign-up", (req, res, next) => {
     passwordConfirmation: req.body.passwordConfirm
   };
 
-  userQueries.createUser(newUser, (err, user) => {
-    if(err){
-      console.log(err)
-      res.status(500).send({ message: err });
+  req.checkBody("username", "must be at least 4 characters long").isLength({min: 4});
+  req.checkBody("email", "must be valid").isEmail();
+  req.checkBody("password", "must be at least 6 characters in length").isLength({min: 6});
+  req.checkBody("passwordConfirm", "must match password provided").matches(req.body.password);
 
-    } else {
-      passport.authenticate("local")(req, res, () => {
-        res.status(200).send({ message: 'user created' });
-      })
-    }
-  })
+  const errors = req.validationErrors();
+
+  if (errors) {
+    res.status(500).send({ message: errors });
+  } else {
+    userQueries.createUser(newUser, (err, user) => {
+      if(err){
+        console.log(err)
+        res.status(500).send({ message: err });
+
+      } else {
+        passport.authenticate("local")(req, res, () => {
+          res.status(200).send({ message: 'user created' });
+        })
+      }
+    })
+  }
 })
 
 app.post("/sign-in", (req, res, next) => {

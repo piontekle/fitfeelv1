@@ -122,15 +122,16 @@ class CheckIn extends Component {
                   <div className="mdl-textfield mdl-js-textfield">
                     <TextField
                       style={formStyle.textField}
-                      label="Title"
+                      label="Title *"
                       name="title"
                       value={title}
                       onChange={this.handleChange("title")}
                     />
+                    <small> <br/>at least 4 characters, no special characters</small>
                   </div>
                   <fieldset>
                   <FormControl style={formStyle.selectBox}>
-                    <InputLabel htmlFor="exercise">Excercise</InputLabel>
+                    <InputLabel htmlFor="exercise">Excercise *</InputLabel>
                     <Select
                       value={exercise}
                       onChange={this.handleChange("exercise")}
@@ -150,7 +151,7 @@ class CheckIn extends Component {
                   </FormControl>
                   </fieldset>
                   <fieldset>
-                    <legend><b>I'm feeling:</b></legend>
+                    <legend><b>I'm feeling *:</b></legend>
                     <Checkbox
                       style={formStyle.checkBox}
                       name="feelings[]"
@@ -216,7 +217,9 @@ class CheckIn extends Component {
                     />
                   </div>
                   <div className="mdl-card__actions mdl-card--border">
-                    <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect" onClick={this.props.getURL} type="submit">Check In</button>
+                    <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
+                    onClick={this.props.getURL}
+                    type="submit">Check In</button>
                   </div>
                 </form>
               </div>

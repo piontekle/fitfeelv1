@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
 import axios from 'axios';
 
 class Profile extends Component {
@@ -77,14 +79,17 @@ class Profile extends Component {
                     </Link>
                   </h2>
                 </div>
-                  <ul>
+                  <List>
                     {
                       checkIns ?
                         checkIns.map((checkIn) =>
-                          <li key={checkIn.title}><Link to={`/check-in/${checkIn.title}`}>{checkIn.title}</Link></li>
-                        ) : <li> No Check Ins yet! </li>
+                        <Link to={`/check-in/${checkIn.title}`}>
+                          <ListItem button key={checkIn.id}>{checkIn.title}</ListItem>
+                        </Link>
+                        )
+                        : <ListItem> No Check Ins yet! </ListItem>
                     }
-                  </ul>
+                  </List>
                 </div>
               </div>
             </div>
@@ -93,11 +98,11 @@ class Profile extends Component {
                 <div className="mdl-card__title mdl-color--primary mdl-color-text--white">
                   <h2 id="user-h" className="mdl-card__title-text">Teammates</h2>
                 </div>
-                <ul>
+                <List>
                     {
-                      teammates ? (<li>No teammates yet!</li>) : (<li>teammates not set up</li>)
+                      teammates === [] ? (<li>No teammates yet!</li>) : (<ListItem>feature coming soon</ListItem>)
                   }
-                </ul>
+                </List>
               </div>
             </div>
           </section>

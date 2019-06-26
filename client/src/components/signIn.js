@@ -38,6 +38,7 @@ class SignIn extends Component {
         password
       })
       .then(response => {
+        this.props.toggleLoggedIn();
         this.setState({
           loggedIn: this.props.loggedIn,
           showError: false
@@ -98,7 +99,7 @@ class SignIn extends Component {
                   <div className="mdl-card__actions mdl-card--border">
             				<button
                     className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
-                    onClick={() => {this.props.toggleLoggedIn(); this.props.getURL()}}
+                    onClick={this.props.getURL}
                     type="submit">Log in</button>
             			</div>
         				</form>

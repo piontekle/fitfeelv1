@@ -12,14 +12,23 @@ app.post("/check-in", (req, res, next) => {
     userId: req.body.userId
   }
 
-  checkInQueries.addCheckIn(newCheckIn, (err, checkIn) => {
-    if(err){
-      console.log(err)
-      res.status(500).send({ message: err });
-    } else {
-      res.status(200).send({ message: "check in created"});
-    }
-  });
+  req.checkBody("title", "must be at least 4 characters long").isLength({min: 4});
+  req.checkBody("exercise", "must be selected").exists();
+  req.checkBody("feelings", "at least one feeling must be selected").exists();
+
+  const errors = req.validationErrors();
+
+  if (errors) {
+    res.status(500).send({ message: errors })
+  } else {
+    checkInQueries.addCheckIn(newCheckIn, (err, checkIn) => {
+      if(err){
+        res.status(500).send({ message: err });
+      } else {
+        res.status(200).send({ message: "check in created"});
+      }
+    });
+  }
 });
 
 app.get("/get-check-in", (req, res, next) => {
