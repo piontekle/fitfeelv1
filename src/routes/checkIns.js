@@ -12,9 +12,9 @@ app.post("/check-in", (req, res, next) => {
     userId: req.body.userId
   }
 
-  req.checkBody("title", "must be at least 4 characters long").isLength({min: 4});
-  req.checkBody("exercise", "must be selected").exists();
-  req.checkBody("feelings", "at least one must be selected").exists();
+  req.checkBody("title", "title must be at least 4 characters long").isLength({min: 4});
+  req.checkBody("exercise", "Exercise must be selected").exists();
+  req.checkBody("feelings", "at least one feeling must be selected").exists();
 
   const errors = req.validationErrors();
 

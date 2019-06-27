@@ -11,9 +11,9 @@ app.post("/sign-up", (req, res, next) => {
     passwordConfirmation: req.body.passwordConfirm
   };
 
-  req.checkBody("username", "must be at least 4 characters long").isLength({min: 4});
-  req.checkBody("email", "must be valid").isEmail();
-  req.checkBody("password", "must be at least 6 characters in length").isLength({min: 6});
+  req.checkBody("username", "username must be at least 4 characters long").isLength({min: 4});
+  req.checkBody("email", "email must be valid").isEmail();
+  req.checkBody("password", "password must be at least 6 characters in length").isLength({min: 6});
   req.checkBody("passwordConfirm", "must match password provided").matches(req.body.password);
 
   const errors = req.validationErrors();
