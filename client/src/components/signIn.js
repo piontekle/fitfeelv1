@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
+import Popup from 'reactjs-popup';
 import axios from 'axios';
 
 class SignIn extends Component {
@@ -10,15 +11,27 @@ class SignIn extends Component {
     this.state = {
       username: '',
       password: '',
+      messageFromServer: [],
       showError: false,
       loggedIn: this.props.loggedIn,
       loginError: false,
       inputInvalid: false
     }
+
+    this.resetError = this.resetError.bind(this)
   }
 
   handleChange = value => e => {
     this.setState({ [value]: e.target.value });
+  }
+
+  resetError() {
+    this.setState({
+      messageFromServer: [],
+      showError: false,
+      inputInvalid: false,
+      loginError: false
+    });
   }
 
   signIn(e) {
@@ -37,27 +50,30 @@ class SignIn extends Component {
         username,
         password
       })
-      .then(response => {
+      .then(res => {
         this.props.toggleLoggedIn();
         this.setState({
           loggedIn: this.props.loggedIn,
-          showError: false
+          showError: false,
+          loginError: false,
+          inputInvalid: false
         })
       })
       .catch(err => {
-        if(err === "Invalid username or password") {
-          this.setState = {
-            messageFromServer: err,
+        if(err.response.data) {
+          this.setState({
+            messageFromServer: err.response.data.message,
             showError: true,
-            loginError: true
-          }
+            loginError: true,
+            inputInvalid: false
+          })
         }
       })
     }
   }
 
   render() {
-    const { username, password, loggedIn } = this.state;
+    const { username, password, loggedIn, messageFromServer, showError, loginError } = this.state;
 
     const formStyle = {
       textField: {
@@ -106,6 +122,18 @@ class SignIn extends Component {
         			</div>
         		</div>
           </div>
+          <Popup
+            open={showError}
+            closeOnDocumentClick
+            onClose={this.resetError}
+          >
+              <ul>
+                {
+                  loginError ?
+                  <li>{messageFromServer}</li> : <li>all lines must be filled out</li>
+                }
+              </ul>
+          </Popup>
         </div>
       )
     }

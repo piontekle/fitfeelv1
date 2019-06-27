@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import Popup from 'reactjs-popup';
 import axios from 'axios';
 
 class CheckIn extends Component {
@@ -19,12 +20,13 @@ class CheckIn extends Component {
       comment: '',
       userId: null,
       checked: false,
-      messageFromServer: '',
+      messageFromServer: [],
       checkInError: false,
       inputInvalid: false
     }
 
     this.handleFeelingClick = this.handleFeelingClick.bind(this);
+    this.resetError = this.resetError.bind(this)
   }
 
   componentDidMount() {
@@ -36,6 +38,15 @@ class CheckIn extends Component {
 
   handleChange = value => e => {
     this.setState({ [value]: e.target.value });
+  }
+
+  resetError() {
+    this.setState({
+      messageFromServer: [],
+      showError: false,
+      inputInvalid: false,
+      checkInError: false
+    });
   }
 
   handleFeelingClick(e) {
@@ -59,7 +70,7 @@ class CheckIn extends Component {
 
     const { title, exercise, feelings, comment, userId} = this.state;
 
-    if (title === '' || exercise === '' || feelings === '') {
+    if (title === '' || exercise === '' || feelings.length === 0) {
       this.setState({
         showError: true,
         inputInvalid: true
@@ -76,14 +87,14 @@ class CheckIn extends Component {
         this.setState({
           messageFromServer: res.data.message,
           showError: false,
-          loginError: false,
+          checkInError: false,
           inputInvalid: false
         });
       })
       .catch((err) => {
-        console.log(err.response.data);
-        if (err.response.data === "check in incomplete") {
+        if (err.response.data) {
           this.setState({
+            messageFromServer: err.response.data.message,
             showError: true,
             checkInError: true,
             inputInvalid: false
@@ -94,7 +105,7 @@ class CheckIn extends Component {
   }
 
   render() {
-    const { title, exercise, comment, checked, messageFromServer } = this.state;
+    const { title, exercise, comment, checked, messageFromServer, showError, checkInError } = this.state;
 
     const formStyle = {
       selectBox: {
@@ -109,7 +120,7 @@ class CheckIn extends Component {
       }
     }
 
-    if (messageFromServer === '') {
+    if (!messageFromServer[0] || showError) {
       return(
         <div className="mdl-grid">
           <div className="section--center mdl-cell">
@@ -225,6 +236,21 @@ class CheckIn extends Component {
               </div>
             </div>
           </div>
+          <Popup
+            open={showError}
+            closeOnDocumentClick
+            onClose={this.resetError}
+          >
+              <ul>
+                {
+                  checkInError ?
+                  messageFromServer.map(msg =>
+                      <li>{msg.msg}</li>
+                  ) :
+                  <li>all lines must be filled out</li>
+                }
+              </ul>
+          </Popup>
         </div>
       )
     }

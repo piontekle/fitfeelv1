@@ -36,14 +36,13 @@ app.post("/sign-up", (req, res, next) => {
 })
 
 app.post("/sign-in", (req, res, next) => {
-  passport.authenticate("local")(req, res, function() {
-
-    if(!req.user){
-      res.status(401).send({message: 'invalid username or password'});
+  passport.authenticate("local", function(err, user, info) {
+    if(!user){
+      res.status(401).send({message: info.message});
     } else {
       res.status(200).send({ message: 'user found and logged in'});
     }
-  })
+  })(req, res, next);
 })
 
 app.post("/sign-out", (req, res, next) => {

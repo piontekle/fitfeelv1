@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
+import Popup from 'reactjs-popup';
 import axios from 'axios';
 
 class SignUp extends Component {
@@ -12,15 +13,26 @@ class SignUp extends Component {
       email: '',
       password: '',
       passwordConfirm: '',
-      messageFromServer: '',
+      messageFromServer: [],
       showError: false,
       inputInvalid: false,
       loginError: false
     };
+
+    this.resetError = this.resetError.bind(this)
   }
 
   handleChange = value => e => {
     this.setState({ [value]: e.target.value });
+  }
+
+  resetError() {
+    this.setState({
+      messageFromServer: [],
+      showError: false,
+      inputInvalid: false,
+      loginError: false
+    });
   }
 
 
@@ -32,6 +44,7 @@ class SignUp extends Component {
     const { username, email, password, passwordConfirm } = this.state;
     if (username === '' || email === '' || password === '') {
       this.setState({
+        messageFromServer: ["all lines must be filled out"],
         showError: true,
         loginError: false,
         inputInvalid: true
@@ -67,7 +80,7 @@ class SignUp extends Component {
   }
 
   render() {
-    const { username, email, password, passwordConfirm, messageFromServer } = this.state;
+    const { username, email, password, passwordConfirm, messageFromServer, showError, loginError } = this.state;
 
     const formStyle = {
       textField: {
@@ -75,7 +88,7 @@ class SignUp extends Component {
       }
     }
 
-    if (messageFromServer === '') {
+    if (!messageFromServer[0] || showError) {
       return(
         <div className="mdl-grid">
           <div className="section--center mdl-grid mdl-card mdl-shadow--6dp">
@@ -139,6 +152,21 @@ class SignUp extends Component {
 
             </div>
           </div>
+            <Popup
+              open={showError}
+              closeOnDocumentClick
+              onClose={this.resetError}
+            >
+                <ul>
+                  {
+                    loginError ?
+                    messageFromServer.map(msg =>
+                        <li>{msg.msg}</li>
+                    ) :
+                    <li>all lines must be filled out</li>
+                  }
+                </ul>
+            </Popup>
         </div>
       )
     }

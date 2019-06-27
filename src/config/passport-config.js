@@ -14,10 +14,12 @@ module.exports = {
     }, (username, password, done) => {
       User.findOne({where: {username: username}})
       .then((user) => {
-        if (!user || !authHelper.comparePass(password, user.password)) {
-          return done(null, false, {message: "Invalid username or password"});
+        if (!user){
+          return done(null, false, {message: "Username not found"});
+        } else if (!authHelper.comparePass(password, user.password)) {
+          return done(null, false, {message: "Invalid password"});
         }
-        return done(null, user, {message: "user created"});
+        return done(null, user);
       })
     }));
 
