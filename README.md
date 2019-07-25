@@ -85,9 +85,8 @@ https://piontekle-fitfeel.herokuapp.com/
 [Material Design Lite](https://getmdl.io/) - CSS library
 
 
-=======
 
 # Author
 Lauren Piontek
-=======
+
 
