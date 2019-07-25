@@ -46,35 +46,48 @@ To run both backend server and front app:
 Go to `http://localhost:3000` in your browser to view and test app.
 
 ### Running the tests
-All backend tests written in Jasmine, React tests written in Jest. To run tests, in your console:
+All backend tests written in [Jasmine](https://jasmine.github.io/pages/getting_started.html), React tests in [Cypress](https://www.cypress.io/) coming soon. To run tests, in the project directory:
 
 `npm test`
 
 # Deployment
 Deployed through [Heroku](www.heroku.com):
 
-_Coming soon_
+In the project directory:
+
+-After committing all changes to _master_:
+
+`git push heroku master`
+
+- If any changes made to the database:
+
+`heroku db:seed:all`
+
+- Visit the site:
+
+https://piontekle-fitfeel.herokuapp.com/
+
+# Upcoming features:
+
+- [ ] React tests in Cypress
+- [ ] Teammates to cheer user progress
+- [ ] Prompts to check in upon sign in
+- [ ] Scales for check in emotions to record range of feelings
 
 # Built With
-[JavaScript](https://devdocs.io/javascript/) - The web language used
 
-[ReactJS](https://reactjs.org/) - The frontend library used
+[ReactJS](https://reactjs.org/) - Frontend library
 
-[NodeJS](https://nodejs.org/en/), [Express](https://expressjs.com/) - The backend engine and framework used
+[NodeJS](https://nodejs.org/en/), [Express](https://expressjs.com/) - Backend engine and framework
 
-[PostgreSQL](https://www.postgresql.org/) - The relational database used
+[PostgreSQL](https://www.postgresql.org/) - Database
 
-[Material Design Lite](https://getmdl.io/) - The CSS library used
+[Material Design Lite](https://getmdl.io/) - CSS library
 
 
-# Versioning
-I use GitHub for versioning.
+=======
 
 # Author
 Lauren Piontek
 =======
-I use GitHub for versioning.
-
-# Author
-Lauren Piontek
 
