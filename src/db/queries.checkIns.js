@@ -7,6 +7,7 @@ module.exports = {
       exercise: newCheckIn.exercise,
       feelings: newCheckIn.feelings,
       comment: newCheckIn.comment,
+      pre: newCheckIn.pre,
       userId: newCheckIn.userId
     })
     .then((checkIn) => {

@@ -3,12 +3,13 @@ const app = express();
 const checkInQueries = require("../db/queries.checkIns.js");
 
 app.post("/check-in", (req, res, next) => {
-  console.log("User ID: " + req.body.userId)
+  let newTitle = req.body.pre ? "Pre-" + req.body.title : "Post-" + req.body.title;
   let newCheckIn = {
-    title: req.body.title,
+    title: newTitle,
     exercise: req.body.exercise,
     feelings: req.body.feelings,
     comment: req.body.comment,
+    pre: req.body.pre,
     userId: req.body.userId
   }
 

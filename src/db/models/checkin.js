@@ -13,7 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: false
     },
-    comment: DataTypes.STRING
+    comment: DataTypes.STRING,
+    pre: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false
+    }
   }, {});
   CheckIn.associate = function(models) {
     CheckIn.belongsTo(models.User, {

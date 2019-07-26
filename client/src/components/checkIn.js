@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
+import Radio from '@material-ui/core/Radio';
 import Popup from 'reactjs-popup';
 import axios from 'axios';
 
@@ -18,6 +19,7 @@ class CheckIn extends Component {
       exercise: '',
       feelings: [],
       comment: '',
+      pre: null,
       userId: null,
       checked: false,
       messageFromServer: [],
@@ -38,6 +40,10 @@ class CheckIn extends Component {
 
   handleChange = value => e => {
     this.setState({ [value]: e.target.value });
+  }
+
+  togglePre(value) {
+    this.setState({ pre: value })
   }
 
   resetError() {
@@ -68,19 +74,22 @@ class CheckIn extends Component {
     e.preventDefault();
     let url = this.props.url;
 
-    const { title, exercise, feelings, comment, userId} = this.state;
+    const { pre, title, exercise, feelings, comment, userId} = this.state;
 
-    if (title === '' || exercise === '' || feelings.length === 0) {
+    if (title === '' || exercise === '' || feelings.length === 0 || pre === null) {
       this.setState({
         showError: true,
         inputInvalid: true
       })
     } else {
+      console.log(title);
+
       axios.post(`${url}/check-in`, {
         title,
         exercise,
         feelings,
         comment,
+        pre,
         userId
       })
       .then((res) => {
@@ -105,7 +114,7 @@ class CheckIn extends Component {
   }
 
   render() {
-    const { title, exercise, comment, checked, messageFromServer, showError, checkInError } = this.state;
+    const { title, exercise, comment, pre, checked, messageFromServer, showError, checkInError } = this.state;
 
     const formStyle = {
       selectBox: {
@@ -131,6 +140,23 @@ class CheckIn extends Component {
               <div className="mdl-card__supporting-text">
                 <form id="checkInForm" onSubmit={ (e) => this.checkIn(e)}>
                   <div className="mdl-textfield mdl-js-textfield">
+                    <fieldset>
+                    <legend>Pre or Post Workout:</legend>
+                      <Radio
+                        name="pre-radio"
+                        style={formStyle.checkBox}
+                        checked={pre === true}
+                        value={true}
+                        onChange={() => this.togglePre(true)}
+                      />Pre
+                      <Radio
+                        name="post-radio"
+                        style={formStyle.checkBox}
+                        checked={pre === false}
+                        value={false}
+                        onChange={() => this.togglePre(false)}
+                      />Post
+                    </fieldset>
                     <TextField
                       style={formStyle.textField}
                       label="Title *"
