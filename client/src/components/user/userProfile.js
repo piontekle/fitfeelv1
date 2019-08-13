@@ -62,6 +62,7 @@ class Profile extends Component {
         <section id="user-profile">
         <div className="mdl-grid">
           <h3> Hello, {this.state.username}!</h3>
+          <h6>How are you feeling today?</h6>
         </div>
           <section id="user" className="mdl-grid">
             <div className="mdl-cell mdl-cell--5-col">

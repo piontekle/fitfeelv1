@@ -12,7 +12,11 @@ class About extends Component {
           <div className="mdl-cell mdl-cell--8-col">
             <h1 id="about-h">About FitFeel</h1>
             <p>Obviously taking care of yourself physically is important to you, but are you keeping yourself mentally fit as well?  With FitFeel, you can "check-in" with yourself before and after workouts. Did you sleep well? Are deadlines coming up? Are you excited for the concert next week? Take a minute to think about where you are mentally before starting a workout and how you're feeling after.</p>
-            <p><img src={brain} alt="strong-brain" /></p>
+            <p>
+              <img src={brain} alt="strong-brain" /><br/ >
+              <small>source: https://www.myvmc.com/health/brain-health/</small>
+
+            </p>
           </div>
         </section>
         <section id="how" className="mdl-grid">

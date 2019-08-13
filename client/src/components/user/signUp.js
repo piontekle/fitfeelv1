@@ -20,6 +20,7 @@ class SignUp extends Component {
     };
 
     this.resetError = this.resetError.bind(this)
+    this.signUp = this.signUp.bind(this);
   }
 
   handleChange = value => e => {
