@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
-import Checkbox from '@material-ui/core/Checkbox';
 import Select from '@material-ui/core/Select';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
+import Slider from '@material-ui/core/Slider';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Radio from '@material-ui/core/Radio';
@@ -17,17 +17,22 @@ class CheckIn extends Component {
     this.state = {
       title: '',
       exercise: '',
-      feelings: [],
+      feelings: {
+        Energized: 0,
+        Happy: 0,
+        Meh: 0,
+        Sad: 0,
+        Tired: 0
+      },
       comment: '',
       pre: null,
       userId: null,
-      checked: false,
       messageFromServer: [],
       checkInError: false,
       inputInvalid: false
     }
 
-    this.handleFeelingClick = this.handleFeelingClick.bind(this);
+    this.handleFeelingSlide = this.handleFeelingSlide.bind(this);
     this.resetError = this.resetError.bind(this)
   }
 
@@ -42,6 +47,15 @@ class CheckIn extends Component {
     this.setState({ [value]: e.target.value });
   }
 
+  handleFeelingSlide = feeling => (event, value) => {
+    let feelings = this.state.feelings;
+
+    feelings[feeling] = value;
+
+
+    this.setState({ feelings: feelings });
+  }
+
   togglePre(value) {
     this.setState({ pre: value })
   }
@@ -53,21 +67,6 @@ class CheckIn extends Component {
       inputInvalid: false,
       checkInError: false
     });
-  }
-
-  handleFeelingClick(e) {
-    this.setState({ checked: e.target.checked });
-
-    let feelings = this.state.feelings || [];
-
-    if(e.target.checked) {
-      feelings.push(e.target.value);
-    } else {
-      let i = feelings.indexOf(e.target.value);
-      feelings.splice(i, 1);
-    }
-
-    this.setState({ feelings: feelings })
   }
 
   checkIn(e) {
@@ -114,7 +113,7 @@ class CheckIn extends Component {
   }
 
   render() {
-    const { title, exercise, comment, pre, checked, messageFromServer, showError, checkInError } = this.state;
+    const { title, exercise, comment, pre, messageFromServer, showError, checkInError } = this.state;
 
     const formStyle = {
       selectBox: {
@@ -124,10 +123,12 @@ class CheckIn extends Component {
       textField: {
         width: 150
       },
-      checkBox: {
+      slider: {
         color: "rgb(255,140,0)"
       }
     }
+
+
 
     if (!messageFromServer[0] || showError) {
       return(
@@ -144,20 +145,21 @@ class CheckIn extends Component {
                     <legend>Pre or Post Workout:</legend>
                       <Radio
                         name="pre-radio"
-                        style={formStyle.checkBox}
+                        style={formStyle.slider}
                         checked={pre === true}
                         value={true}
                         onChange={() => this.togglePre(true)}
                       />Pre
                       <Radio
                         name="post-radio"
-                        style={formStyle.checkBox}
+                        style={formStyle.slider}
                         checked={pre === false}
                         value={false}
                         onChange={() => this.togglePre(false)}
                       />Post
                     </fieldset>
                     <TextField
+                      id="title-input"
                       style={formStyle.textField}
                       label="Title *"
                       name="title"
@@ -166,7 +168,7 @@ class CheckIn extends Component {
                     />
                     <small> <br/>at least 4 characters, no special characters</small>
                   </div>
-                  <fieldset>
+                  <fieldset id="exercise-select">
                   <FormControl style={formStyle.selectBox}>
                     <InputLabel htmlFor="exercise">Excercise *</InputLabel>
                     <Select
@@ -187,62 +189,68 @@ class CheckIn extends Component {
                     </Select>
                   </FormControl>
                   </fieldset>
-                  <fieldset>
+                  <fieldset id="feelings-select">
                     <legend><b>I'm feeling *:</b></legend>
-                    <Checkbox
-                      style={formStyle.checkBox}
-                      name="feelings[]"
-                      className="mdl-checkbox__input"
-                      defaultChecked={checked}
-                      onChange={this.handleFeelingClick}
-                      value="Energized"
+                    Energized
+                    <Slider
+                      style={formStyle.slider}
+                      aria-labelledby="discrete-slider"
+                      valueLabelDisplay="auto"
+                      value={this.state.feelings["Energized"]}
+                      onChange={this.handleFeelingSlide("Energized")}
+                      step={1}
+                      marks
+                      min={0}
+                      max={5}
                     />
-                    <span className="mdl-checkbox__label">Energized</span>
-                    <Checkbox
-                      style={formStyle.checkBox}
-                      name="feelings[]"
-                      className="mdl-checkbox__input"
-                      defaultChecked={checked}
-                      onChange={this.handleFeelingClick}
-                      value="Happy"
+                    Happy
+                    <Slider
+                      style={formStyle.slider}
+                      aria-labelledby="discrete-slider"
+                      valueLabelDisplay="auto"
+                      value={this.state.feelings["Happy"]}
+                      onChange={this.handleFeelingSlide("Happy")}
+                      step={1}
+                      marks
+                      min={0}
+                      max={5}
                     />
-                    <span className="mdl-checkbox__label">Happy</span><br/>
-                    <Checkbox
-                      style={formStyle.checkBox}
-                      name="feelings[]"
-                      className="mdl-checkbox__input"
-                      defaultChecked={checked}
-                      onChange={this.handleFeelingClick}
-                      value="Slow"
+                    Meh
+                    <Slider
+                      style={formStyle.slider}
+                      aria-labelledby="discrete-slider"
+                      valueLabelDisplay="auto"
+                      value={this.state.feelings["Meh"]}
+                      onChange={this.handleFeelingSlide("Meh")}
+                      step={1}
+                      marks
+                      min={0}
+                      max={5}
                     />
-                    <span className="mdl-checkbox__label">Slow</span>
-                    <Checkbox
-                      style={formStyle.checkBox}
-                      name="feelings[]"
-                      className="mdl-checkbox__input"
-                      defaultChecked={checked}
-                      onChange={this.handleFeelingClick}
-                      value="Meh"
+                    Tired
+                    <Slider
+                      style={formStyle.slider}
+                      aria-labelledby="discrete-slider"
+                      valueLabelDisplay="auto"
+                      value={this.state.feelings["Tired"]}
+                      onChange={this.handleFeelingSlide("Tired")}
+                      step={1}
+                      marks
+                      min={0}
+                      max={5}
                     />
-                    <span className="mdl-checkbox__label">Meh</span><br/>
-                    <Checkbox
-                      style={formStyle.checkBox}
-                      name="feelings[]"
-                      className="mdl-checkbox__input"
-                      defaultChecked={checked}
-                      onChange={this.handleFeelingClick}
-                      value="Sad"
+                    Sad
+                    <Slider
+                      style={formStyle.slider}
+                      aria-labelledby="discrete-slider"
+                      valueLabelDisplay="auto"
+                      value={this.state.feelings["Sad"]}
+                      onChange={this.handleFeelingSlide("Sad")}
+                      step={1}
+                      marks
+                      min={0}
+                      max={5}
                     />
-                    <span className="mdl-checkbox__label">Sad</span>
-                    <Checkbox
-                      style={formStyle.checkBox}
-                      name="feelings[]"
-                      className="mdl-checkbox__input"
-                      defaultChecked={checked}
-                      onChange={this.handleFeelingClick}
-                      value="Tired"
-                    />
-                    <span className="mdl-checkbox__label">Tired</span><br/>
                   </fieldset>
                   <div className="mdl-textfield mdl-js-textfield">
                     <TextField

@@ -16,12 +16,15 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
-      feelings: {
+      preCheck: {
         type: Sequelize.ARRAY(Sequelize.TEXT),
         allowNull: false
       },
-      comment: {
-        type: Sequelize.STRING
+      postCheck: {
+        type: Sequelize.ARRAY(Sequelize.TEXT)
+      },
+      pre: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,

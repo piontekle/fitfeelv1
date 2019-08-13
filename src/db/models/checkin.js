@@ -9,13 +9,17 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-    feelings: {
+    preCheck: {
       type: DataTypes.ARRAY(DataTypes.TEXT),
       allowNull: false
     },
-    comment: DataTypes.STRING,
+    postCheck: DataTypes.ARRAY(DataTypes.TEXT),
     pre: {
       type: DataTypes.BOOLEAN,
+      allowNull: false
+    },
+    userId: {
+      type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {});
@@ -33,6 +37,5 @@ module.exports = (sequelize, DataTypes) => {
       order: [["createdAt", "DESC"]]
     }
   });
-
   return CheckIn;
 };
