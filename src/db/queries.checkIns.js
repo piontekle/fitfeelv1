@@ -5,9 +5,7 @@ module.exports = {
     return CheckIn.create({
       title: newCheckIn.title,
       exercise: newCheckIn.exercise,
-      feelings: newCheckIn.feelings,
-      comment: newCheckIn.comment,
-      pre: newCheckIn.pre,
+      preCheck: newCheckIn.preCheck,
       userId: newCheckIn.userId
     })
     .then((checkIn) => {

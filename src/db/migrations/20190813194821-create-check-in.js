@@ -17,14 +17,11 @@ module.exports = {
         allowNull: false
       },
       preCheck: {
-        type: Sequelize.ARRAY(Sequelize.TEXT),
+        type: Sequelize.ARRAY(Sequelize.JSON),
         allowNull: false
       },
       postCheck: {
-        type: Sequelize.ARRAY(Sequelize.TEXT)
-      },
-      pre: {
-        type: Sequelize.BOOLEAN
+        type: Sequelize.ARRAY(Sequelize.JSON)
       },
       createdAt: {
         allowNull: false,

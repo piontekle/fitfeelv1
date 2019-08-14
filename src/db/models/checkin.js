@@ -10,14 +10,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     preCheck: {
-      type: DataTypes.ARRAY(DataTypes.TEXT),
+      type: DataTypes.ARRAY(DataTypes.JSON),
       allowNull: false
     },
-    postCheck: DataTypes.ARRAY(DataTypes.TEXT),
-    pre: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false
-    },
+    postCheck: DataTypes.ARRAY(DataTypes.JSON),
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false

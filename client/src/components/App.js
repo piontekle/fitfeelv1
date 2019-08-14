@@ -70,10 +70,11 @@ class App extends Component {
 
   componentDidMount() {
     this.connectToServer();
+    this.getURL();
   }
 
   render() {
-    const { loggedIn, url } = this.state;
+    const { loggedIn, url, username, userId } = this.state;
 
     return (
       <div className="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
@@ -107,24 +108,24 @@ class App extends Component {
                   <Route exact path='/'
                   render={(props) =>
                     <Home {...props}
-                    loggedIn={this.state.loggedIn}
-                    username={this.state.username}
+                    loggedIn={loggedIn}
+                    username={username}
                     />}
                   />
                   <Route path='/about-ff' component={About}/>
                   <Route path='/sign-up'
                   render={(props) =>
                     <SignUp {...props}
-                    getURL={() => this.getURL()}
                     url={url}
                     />}
                   />
                   <Route path='/sign-in'
                   render={(props) =>
                     <SignIn {...props}
-                    getURL={() => this.getURL()}
                     url={url}
                     toggleLoggedIn={() => this.toggleLoggedIn()}
+                    setUser={(username, id) => this.setUser(username, id)}
+                    username={username}
                     loggedIn={loggedIn}
                     />}
                   />
@@ -132,23 +133,21 @@ class App extends Component {
                   render={(props) =>
                     <Profile {...props}
                     url={this.state.url}
+                    username={this.state.username}
                     loggedIn={this.state.loggedIn}
-                    setUser={(username, id) => this.setUser(username, id)}
                     />}
                   />
                   <Route path='/check-in/:title'
                   render={(props) =>
                     <ShowCheckIn {...props}
-                    url={this.state.url}
+                    url={url}
                     />}
                   />
                   <Route path='/check-in'
                   render={(props) =>
                     <CheckIn {...props}
-                    getURL={() => this.getURL()}
-                    url={this.state.url}
-                    userId={this.state.userId}
-                    username={this.state.username}
+                    url={url}
+                    userId={userId}
                     />}
                   />
                 </Switch>

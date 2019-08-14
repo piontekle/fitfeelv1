@@ -3,19 +3,15 @@ const app = express();
 const checkInQueries = require("../db/queries.checkIns.js");
 
 app.post("/check-in", (req, res, next) => {
-  let newTitle = req.body.pre ? "Pre-" + req.body.title : "Post-" + req.body.title;
   let newCheckIn = {
-    title: newTitle,
+    title: req.body.title,
     exercise: req.body.exercise,
-    feelings: req.body.feelings,
-    comment: req.body.comment,
-    pre: req.body.pre,
+    preCheck: [req.body.feelings, req.body.comment],
     userId: req.body.userId
   }
 
   req.checkBody("title", "title must be at least 4 characters long").isLength({min: 4});
   req.checkBody("exercise", "Exercise must be selected").exists();
-  req.checkBody("feelings", "at least one feeling must be selected").exists();
 
   const errors = req.validationErrors();
 
@@ -24,6 +20,7 @@ app.post("/check-in", (req, res, next) => {
   } else {
     checkInQueries.addCheckIn(newCheckIn, (err, checkIn) => {
       if(err){
+        console.log(err)
         res.status(500).send({ message: err });
       } else {
         res.status(200).send({ message: "check in created"});
@@ -40,8 +37,8 @@ app.get("/get-check-in", (req, res, next) => {
       res.status(200).send({
         title: checkIn.title,
         exercise: checkIn.exercise,
-        feelings: checkIn.feelings,
-        comment: checkIn.comment,
+        preCheck: checkIn.preCheck,
+        postCheck: checkIn.postCheck,
         message: 'check in found'
       });
     }

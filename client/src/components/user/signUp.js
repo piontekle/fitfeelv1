@@ -9,6 +9,7 @@ class SignUp extends Component {
     super(props);
 
     this.state = {
+      url: '',
       username: '',
       email: '',
       password: '',
@@ -21,6 +22,10 @@ class SignUp extends Component {
 
     this.resetError = this.resetError.bind(this)
     this.signUp = this.signUp.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({ url: this.props.url });
   }
 
   handleChange = value => e => {
@@ -39,7 +44,7 @@ class SignUp extends Component {
 
   signUp(e) {
     e.preventDefault();
-    let url = this.props.url;
+    let url = this.state.url;
 
 
     const { username, email, password, passwordConfirm } = this.state;
@@ -146,7 +151,9 @@ class SignUp extends Component {
                     <small>must match above password</small>
                   </div>
                   <div className="mdl-card__actions mdl-card--border">
-                    <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect" onClick={this.props.getURL} type="submit">Sign Up</button>
+                    <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect" type="submit">
+                      Sign Up
+                    </button>
                   </div>
                 </form>
               </div>

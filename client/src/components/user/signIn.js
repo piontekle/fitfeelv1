@@ -9,6 +9,7 @@ class SignIn extends Component {
     super(props);
 
     this.state = {
+      url: '',
       username: '',
       password: '',
       messageFromServer: [],
@@ -19,6 +20,10 @@ class SignIn extends Component {
     }
 
     this.resetError = this.resetError.bind(this)
+  }
+
+  componentDidMount() {
+    this.setState({ url: this.props.url });
   }
 
   handleChange = value => e => {
@@ -36,7 +41,7 @@ class SignIn extends Component {
 
   signIn(e) {
     e.preventDefault();
-    let url = this.props.url;
+    let url = this.state.url;
 
     const { username, password } = this.state;
 
@@ -51,9 +56,12 @@ class SignIn extends Component {
         password
       })
       .then(res => {
+        this.props.setUser(res.data.username, res.data.userId);
+
         this.props.toggleLoggedIn();
         this.setState({
           loggedIn: this.props.loggedIn,
+          username: this.props.username,
           showError: false,
           loginError: false,
           inputInvalid: false
@@ -115,7 +123,6 @@ class SignIn extends Component {
                   <div className="mdl-card__actions mdl-card--border">
             				<button
                     className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
-                    onClick={this.props.getURL}
                     type="submit">Log in</button>
             			</div>
         				</form>

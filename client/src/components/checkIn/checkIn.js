@@ -6,7 +6,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Slider from '@material-ui/core/Slider';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import Radio from '@material-ui/core/Radio';
 import Popup from 'reactjs-popup';
 import axios from 'axios';
 
@@ -15,6 +14,7 @@ class CheckIn extends Component {
     super(props);
 
     this.state = {
+      url: '',
       title: '',
       exercise: '',
       feelings: {
@@ -25,8 +25,7 @@ class CheckIn extends Component {
         Tired: 0
       },
       comment: '',
-      pre: null,
-      userId: null,
+      userId: this.props.userId,
       messageFromServer: [],
       checkInError: false,
       inputInvalid: false
@@ -38,7 +37,8 @@ class CheckIn extends Component {
 
   componentDidMount() {
     this.setState({
-      userId: this.props.location.state.userId
+      url: this.props.url,
+      userId: this.props.userId
     })
   }
 
@@ -71,24 +71,21 @@ class CheckIn extends Component {
 
   checkIn(e) {
     e.preventDefault();
-    let url = this.props.url;
+    let url = this.state.url;
 
-    const { pre, title, exercise, feelings, comment, userId} = this.state;
+    const { title, exercise, feelings, comment, userId} = this.state;
 
-    if (title === '' || exercise === '' || feelings.length === 0 || pre === null) {
+    if (title === '' || exercise === '') {
       this.setState({
         showError: true,
         inputInvalid: true
       })
     } else {
-      console.log(title);
-
       axios.post(`${url}/check-in`, {
         title,
         exercise,
         feelings,
         comment,
-        pre,
         userId
       })
       .then((res) => {
@@ -101,8 +98,9 @@ class CheckIn extends Component {
       })
       .catch((err) => {
         if (err.response.data) {
+          console.log(err.response.data.message);
           this.setState({
-            messageFromServer: err.response.data.message,
+            messageFromServer: err.response.data.message || err.response.data.name,
             showError: true,
             checkInError: true,
             inputInvalid: false
@@ -113,7 +111,7 @@ class CheckIn extends Component {
   }
 
   render() {
-    const { title, exercise, comment, pre, messageFromServer, showError, checkInError } = this.state;
+    const { title, exercise, comment, messageFromServer, showError, checkInError } = this.state;
 
     const formStyle = {
       selectBox: {
@@ -141,23 +139,6 @@ class CheckIn extends Component {
               <div className="mdl-card__supporting-text">
                 <form id="checkInForm" onSubmit={ (e) => this.checkIn(e)}>
                   <div className="mdl-textfield mdl-js-textfield">
-                    <fieldset>
-                    <legend>Pre or Post Workout:</legend>
-                      <Radio
-                        name="pre-radio"
-                        style={formStyle.slider}
-                        checked={pre === true}
-                        value={true}
-                        onChange={() => this.togglePre(true)}
-                      />Pre
-                      <Radio
-                        name="post-radio"
-                        style={formStyle.slider}
-                        checked={pre === false}
-                        value={false}
-                        onChange={() => this.togglePre(false)}
-                      />Post
-                    </fieldset>
                     <TextField
                       id="title-input"
                       style={formStyle.textField}
@@ -263,7 +244,6 @@ class CheckIn extends Component {
                   </div>
                   <div className="mdl-card__actions mdl-card--border">
                     <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
-                    onClick={this.props.getURL}
                     type="submit">Check In</button>
                   </div>
                 </form>

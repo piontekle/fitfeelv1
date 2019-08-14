@@ -40,7 +40,11 @@ app.post("/sign-in", (req, res, next) => {
     if(!user){
       res.status(401).send({message: info.message});
     } else {
-      res.status(200).send({ message: 'user found and logged in'});
+      res.status(200).send({
+        username: user.username,
+        userId: user.id,
+        message: 'user found and logged in'
+      });
     }
   })(req, res, next);
 })

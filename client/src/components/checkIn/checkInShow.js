@@ -10,8 +10,8 @@ class ShowCheckIn extends Component {
     this.state = {
       title: '',
       exercise: '',
-      feelings: '',
-      comment: ''
+      preCheck: [],
+      postCheck: []
     }
   }
 
@@ -22,13 +22,11 @@ class ShowCheckIn extends Component {
       params: {title: this.props.match.params.title}
     })
     .then((res) => {
-      let feelings = this.formatFeelings(res.data.feelings);
-
       this.setState({
         title: res.data.title,
         exercise: res.data.exercise,
-        feelings: feelings,
-        comment: res.data.comment
+        preCheck: res.data.preCheck,
+        postCheck: res.data.postCheck
       });
     })
     .catch((err) => {
@@ -39,14 +37,8 @@ class ShowCheckIn extends Component {
     });
   }
 
-formatFeelings(feelings) {
-  if (feelings.length === 1) return feelings;
-
-  return feelings.slice(0, feelings.length - 1).join(", ") + ", and " + feelings.slice(-1);
-}
-
   render() {
-    const { title, exercise, feelings, comment } = this.state;
+    const { title, exercise, preCheck } = this.state;
 
     const checkInStyle = {
       card: {
@@ -66,9 +58,14 @@ formatFeelings(feelings) {
           <h2>{title}</h2>
           <CardContent>
             <p>Exercise: {exercise}</p>
-            <p>I felt: {feelings}</p>
+            <p>I felt: {
+                preCheck[0] && Object.keys(preCheck[0]).map((feeling) =>
+                  <li key={feeling}>{feeling}: {preCheck[0][feeling]}</li>
+                )
+              }
+            </p>
             {
-              comment ? <p>{comment}</p> : <p>No extras today!</p>
+              preCheck[1] ? <p>{preCheck[1]}</p> : <p>No extras today!</p>
             }
           </CardContent>
         </Card>
