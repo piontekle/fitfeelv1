@@ -9,6 +9,7 @@ import SignUp from './user/signUp';
 import SignIn from './user/signIn';
 import Profile from './user/userProfile';
 import CheckIn from './checkIn/checkIn';
+import PostCheck from './checkIn/postCheck';
 import ShowCheckIn from './checkIn/checkInShow';
 
 
@@ -137,17 +138,23 @@ class App extends Component {
                     loggedIn={this.state.loggedIn}
                     />}
                   />
-                  <Route path='/check-in/:title'
+                  <Route exact path='/check-in/:id'
                   render={(props) =>
                     <ShowCheckIn {...props}
                     url={url}
                     />}
                   />
-                  <Route path='/check-in'
+                  <Route exact path='/check-in'
                   render={(props) =>
                     <CheckIn {...props}
                     url={url}
                     userId={userId}
+                    />}
+                  />
+                  <Route exact path='/check-in/:id/post'
+                  render={(props) =>
+                    <PostCheck {...props}
+                    url={url}
                     />}
                   />
                 </Switch>

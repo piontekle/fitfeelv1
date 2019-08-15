@@ -15,8 +15,8 @@ module.exports = {
       callback(err);
     })
   },
-  getCheckIn(checkInTitle, callback){
-    return CheckIn.findOne({where: {title: checkInTitle}})
+  getCheckIn(checkInId, callback){
+    return CheckIn.findByPk(checkInId)
     .then((checkIn) => {
       callback(null, checkIn);
     })

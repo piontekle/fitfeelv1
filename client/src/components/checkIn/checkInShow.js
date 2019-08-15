@@ -19,7 +19,7 @@ class ShowCheckIn extends Component {
     let url=this.props.url;
 
     await axios.get(`${url}/get-check-in`, {
-      params: {title: this.props.match.params.title}
+      params: {id: this.props.match.params.id}
     })
     .then((res) => {
       this.setState({
@@ -50,12 +50,14 @@ class ShowCheckIn extends Component {
 
     return (
       <div>
+        <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
+        onClick={this.props.history.goBack}>
+          Back to Profile
+        </button>
         <Card style={checkInStyle.card}>
-          <button className="mdl-button mdl-button--accent mdl-js-button mdl-js-ripple-effect"
-          onClick={this.props.history.goBack}>
-            Back to Profile
-          </button>
-          <h2>{title}</h2>
+          <div className="mdl-card__title mdl-color--primary mdl-color-text--white">
+            <h2 className="mdl-card__title-text">{title}</h2>
+          </div>
           <CardContent>
             <p>Exercise: {exercise}</p>
             <p>I felt: {

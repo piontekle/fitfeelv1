@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
 import axios from 'axios';
 
 class Profile extends Component {
@@ -71,17 +76,24 @@ class Profile extends Component {
                     </Link>
                   </h2>
                 </div>
-                  <List>
-                    {
-                      checkIns ?
-                        checkIns.map((checkIn) =>
-                        <Link to={`/check-in/${checkIn.title}`} key={checkIn.id}>
+                  <Table>
+                    <TableHead>
+                      <TableCell>Title</TableCell>
+                      <TableCell align="right">Pre?</TableCell>
+                      <TableCell align="right">Post?</TableCell>
+                    </TableHead>
+                    <TableBody>
+                      {
+                        checkIns ?
+                          checkIns.map((checkIn) =>
+                            <TableRow key={checkIn.id} hover>
                               <CheckIn checkIn={checkIn} />
-                        </Link>
-                        )
-                        : <ListItem> No Check Ins yet! </ListItem>
-                    }
-                  </List>
+                            </TableRow>
+                          )
+                          : <TableRow> No Check Ins yet! </TableRow>
+                      }
+                    </TableBody>
+                  </Table>
                 </div>
               </div>
             </div>
@@ -105,9 +117,25 @@ class Profile extends Component {
 
 
 const CheckIn = ({ checkIn }) => (
-    <ListItem button>
-      {checkIn.title} check   {checkIn.postCheck === null ? "add post" : "check"}
-    </ListItem>
+  <>
+    <TableCell>
+      <Link to={`/check-in/${checkIn.id}`} key={checkIn.id}>
+        {checkIn.title}
+      </Link>
+    </TableCell>
+    <TableCell align="right">
+      <i className="material-icons">check_circle_outline</i>
+    </TableCell>
+    <TableCell align="right">
+      {
+        checkIn.postCheck === null ?
+        <Link to={`/check-in/${checkIn.id}/post`} key={checkIn.id}>
+          <i className="material-icons">add_comment</i>
+        </Link>
+        : <i className="material-icons">check_circle_outline</i>
+      }
+    </TableCell>
+  </>
 )
 
 export default Profile;

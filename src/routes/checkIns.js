@@ -30,7 +30,7 @@ app.post("/check-in", (req, res, next) => {
 });
 
 app.get("/get-check-in", (req, res, next) => {
-  checkInQueries.getCheckIn(req.query.title, (err, checkIn) => {
+  checkInQueries.getCheckIn(req.query.id, (err, checkIn) => {
     if (err || checkIn === undefined) {
       res.status(401).send({message: 'No check in found.'});
     } else {
