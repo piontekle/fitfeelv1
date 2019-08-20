@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, Link } from 'react-router-dom';
+import { withRouter, Switch, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import './App.css';
 import Navbar from './static/navbar';
@@ -63,6 +63,7 @@ class App extends Component {
     axios.post(`${this.state.url}/sign-out`)
     .then(response => {
       this.toggleLoggedIn();
+      this.props.history.push('/');
     })
     .catch((err) => {
       console.log(err);
@@ -168,4 +169,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
