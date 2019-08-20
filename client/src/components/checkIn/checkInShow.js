@@ -69,7 +69,7 @@ class ShowCheckIn extends Component {
               <div className="mdl-card__title mdl-color--primary mdl-color-text--white" style={checkInStyle.title}>
                 <h2 className="mdl-card__title-text">{title}</h2>
               </div>
-              <h6>Pre Workout</h6>
+              <h6 className="header-text">Pre Workout</h6>
               <CardContent>
                 <p><b>Exercise:</b> {exercise}</p>
                 <p> <b>I felt:</b> </p>
@@ -102,7 +102,7 @@ class ShowCheckIn extends Component {
             <Card style={checkInStyle.card}>
             <div className="mdl-card__title mdl-color--primary mdl-color-text--white" style={checkInStyle.title}>
             </div>
-              <h6>Post Workout</h6>
+              <h6 className="header-text">Post Workout</h6>
               <CardContent>
               { postCheck ?
               <>

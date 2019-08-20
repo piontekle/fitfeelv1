@@ -63,8 +63,8 @@ class Profile extends Component {
 
       return (
         <section id="user-profile">
-          <h3> Hello, {username}!</h3>
-          <h6>How are you feeling today?</h6>
+          <h3 className="header-text"> Hello, {username}!</h3>
+          <h6 className="header-text">How are you feeling today?</h6>
           <section id="user" className="mdl-grid">
             <div className="mdl-cell mdl-cell--5-col">
               <div className="mdl-card mdl-shadow--6dp" style={style.card}>
