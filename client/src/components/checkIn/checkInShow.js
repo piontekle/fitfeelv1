@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Slider from '@material-ui/core/Slider';
 import axios from 'axios';
 
 class ShowCheckIn extends Component {
@@ -44,12 +45,15 @@ class ShowCheckIn extends Component {
       card: {
         margin: "auto",
         maxWidth: 300,
-        minHeight: 450,
-        maxHeight: 500,
+        minHeight: 700,
+        maxHeight: 700,
         alignment: "center"
       },
       title: {
         minHeight: 60
+      },
+      slider: {
+        color: "rgb(255,140,0)"
       }
     }
 
@@ -67,15 +71,29 @@ class ShowCheckIn extends Component {
               </div>
               <h6>Pre Workout</h6>
               <CardContent>
-                <p>Exercise: {exercise}</p>
-                <p>I felt: {
+                <p><b>Exercise:</b> {exercise}</p>
+                <p> <b>I felt:</b> </p>
+                <p>{
                     preCheck[0] && Object.keys(preCheck[0]).map((feeling) =>
-                      <li key={feeling}>{feeling}: {preCheck[0][feeling]}</li>
+                    <>
+                    {feeling}:
+                      <Slider
+                        style={checkInStyle.slider}
+                        aria-labelledby="discrete-slider"
+                        valueLabelDisplay="auto"
+                        value={preCheck[0][feeling]}
+                        disabled
+                        step={1}
+                        marks
+                        min={0}
+                        max={5}
+                      />
+                    </>
                     )
                   }
                 </p>
                 {
-                  preCheck[1] ? <p>{preCheck[1]}</p> : <p>No extras today!</p>
+                  preCheck[1] ? <p><b>Comments: </b>{preCheck[1]}</p> : <p>No extras today!</p>
                 }
               </CardContent>
             </Card>
@@ -86,16 +104,35 @@ class ShowCheckIn extends Component {
             </div>
               <h6>Post Workout</h6>
               <CardContent>
-                <p>Exercise: {exercise}</p>
-                <p>I felt: {
-                    postCheck[0] && Object.keys(postCheck[0]).map((feeling) =>
-                      <li key={feeling}>{feeling}: {postCheck[0][feeling]}</li>
-                    )
+              { postCheck ?
+              <>
+                <div></div>
+                <p><b> I felt: </b></p>
+                  <p>{
+                      postCheck[0] && Object.keys(postCheck[0]).map((feeling) =>
+                        <>
+                        {feeling}:
+                          <Slider
+                            style={checkInStyle.slider}
+                            aria-labelledby="discrete-slider"
+                            valueLabelDisplay="auto"
+                            value={postCheck[0][feeling]}
+                            disabled
+                            step={1}
+                            marks
+                            min={0}
+                            max={5}
+                          />
+                        </>
+                      )
+                    }
+                  </p>
+                  {
+                    postCheck[1] ? <p><b>Comments: </b>{postCheck[1]}</p> : <p>No extras today!</p>
                   }
-                </p>
-                {
-                  postCheck[1] ? <p>{postCheck[1]}</p> : <p>No extras today!</p>
-                }
+                </> :
+                <p>No post check in yet!</p>
+              }
               </CardContent>
             </Card>
           </div>
