@@ -20,10 +20,9 @@ app.post("/check-in", (req, res, next) => {
   } else {
     checkInQueries.addCheckIn(newCheckIn, (err, checkIn) => {
       if(err){
-        console.log(err)
         res.status(500).send({ message: err });
       } else {
-        res.status(200).send({ message: "check in created"});
+        res.status(200).send({ message: 'check in created'});
       }
     });
   }
@@ -41,6 +40,17 @@ app.get("/get-check-in", (req, res, next) => {
         postCheck: checkIn.postCheck,
         message: 'check in found'
       });
+    }
+  })
+})
+
+app.post("/post-check-in", (req, res, next) => {
+  checkInQueries.postCheckIn(req.body.query.checkInId, req.body.data, (err, checkIn) => {
+    if(err || checkIn === null) {
+      console.log(err)
+      res.status(404).send({message: 'No check in found.'});
+    } else {
+      res.status(200).send({message: 'post check in created'});
     }
   })
 })

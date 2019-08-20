@@ -38,13 +38,18 @@ class ShowCheckIn extends Component {
   }
 
   render() {
-    const { title, exercise, preCheck } = this.state;
+    const { title, exercise, preCheck, postCheck } = this.state;
 
     const checkInStyle = {
       card: {
         margin: "auto",
         maxWidth: 300,
+        minHeight: 450,
+        maxHeight: 500,
         alignment: "center"
+      },
+      title: {
+        minHeight: 60
       }
     }
 
@@ -54,23 +59,47 @@ class ShowCheckIn extends Component {
         onClick={this.props.history.goBack}>
           Back to Profile
         </button>
-        <Card style={checkInStyle.card}>
-          <div className="mdl-card__title mdl-color--primary mdl-color-text--white">
-            <h2 className="mdl-card__title-text">{title}</h2>
+        <section id="check-in-display" className="mdl-grid">
+          <div className="mdl-cell mdl-cell--5-col">
+            <Card style={checkInStyle.card}>
+              <div className="mdl-card__title mdl-color--primary mdl-color-text--white" style={checkInStyle.title}>
+                <h2 className="mdl-card__title-text">{title}</h2>
+              </div>
+              <h6>Pre Workout</h6>
+              <CardContent>
+                <p>Exercise: {exercise}</p>
+                <p>I felt: {
+                    preCheck[0] && Object.keys(preCheck[0]).map((feeling) =>
+                      <li key={feeling}>{feeling}: {preCheck[0][feeling]}</li>
+                    )
+                  }
+                </p>
+                {
+                  preCheck[1] ? <p>{preCheck[1]}</p> : <p>No extras today!</p>
+                }
+              </CardContent>
+            </Card>
           </div>
-          <CardContent>
-            <p>Exercise: {exercise}</p>
-            <p>I felt: {
-                preCheck[0] && Object.keys(preCheck[0]).map((feeling) =>
-                  <li key={feeling}>{feeling}: {preCheck[0][feeling]}</li>
-                )
-              }
-            </p>
-            {
-              preCheck[1] ? <p>{preCheck[1]}</p> : <p>No extras today!</p>
-            }
-          </CardContent>
-        </Card>
+          <div className="mdl-cell mdl-cell--5-col">
+            <Card style={checkInStyle.card}>
+            <div className="mdl-card__title mdl-color--primary mdl-color-text--white" style={checkInStyle.title}>
+            </div>
+              <h6>Post Workout</h6>
+              <CardContent>
+                <p>Exercise: {exercise}</p>
+                <p>I felt: {
+                    postCheck[0] && Object.keys(postCheck[0]).map((feeling) =>
+                      <li key={feeling}>{feeling}: {postCheck[0][feeling]}</li>
+                    )
+                  }
+                </p>
+                {
+                  postCheck[1] ? <p>{postCheck[1]}</p> : <p>No extras today!</p>
+                }
+              </CardContent>
+            </Card>
+          </div>
+        </section>
       </div>
     )
   }

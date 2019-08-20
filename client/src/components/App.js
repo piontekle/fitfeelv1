@@ -134,8 +134,8 @@ class App extends Component {
                   render={(props) =>
                     <Profile {...props}
                     url={this.state.url}
-                    username={this.state.username}
-                    loggedIn={this.state.loggedIn}
+                    username={username}
+                    loggedIn={loggedIn}
                     />}
                   />
                   <Route exact path='/check-in/:id'
@@ -155,6 +155,7 @@ class App extends Component {
                   render={(props) =>
                     <PostCheck {...props}
                     url={url}
+                    userId={userId}
                     />}
                   />
                 </Switch>

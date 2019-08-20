@@ -42,7 +42,8 @@ class PostCheck extends Component {
     .catch((err) => {
       console.log(err)
       this.setState({
-        error: true
+        messageFromServer: err,
+        showError: true
       })
     });
   }
@@ -62,13 +63,14 @@ class PostCheck extends Component {
 
   postCheckIn(e) {
     e.preventDefault();
-    let url = this.state.url;
+    let url = this.props.url;
+    let checkInId = this.props.match.params.id
 
     const { feelings, comment } = this.state;
 
     axios.post(`${url}/post-check-in`, {
-      feelings,
-      comment
+      data: { feelings, comment },
+      query: { checkInId }
     })
     .then((res) => {
       this.setState({
@@ -80,7 +82,6 @@ class PostCheck extends Component {
     })
     .catch((err) => {
       if (err.response.data) {
-        console.log(err.response.data.message);
         this.setState({
           messageFromServer: err.response.data.message || err.response.data.name,
           showError: true,
