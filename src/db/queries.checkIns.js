@@ -25,12 +25,14 @@ module.exports = {
     });
   },
   postCheckIn(checkInId, postCheckIn, callback) {
-    console.log(postCheckIn);
     return CheckIn.findByPk(checkInId)
     .then((checkIn) => {
       if(!checkIn) return callback("Check in not found");
 
       checkIn.update({ postCheck: [postCheckIn.feelings, postCheckIn.comment] })
+      .then(() => {
+        callback(null, checkIn);
+      })
       .catch((err) => {
         callback(err);
       });

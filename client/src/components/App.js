@@ -155,7 +155,7 @@ class App extends Component {
                   render={(props) =>
                     <PostCheck {...props}
                     url={url}
-                    userId={userId}
+                    username={username}
                     />}
                   />
                 </Switch>

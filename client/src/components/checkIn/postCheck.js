@@ -21,6 +21,7 @@ class PostCheck extends Component {
         Tired: 0
       },
       comment: '',
+      username: this.props.username,
       messageFromServer: [],
       checkInError: false
     }
@@ -236,7 +237,7 @@ class PostCheck extends Component {
     }
 
 
-    return <Redirect to={`/user/${this.props.username}`} />
+    return <Redirect to={`/user/${this.state.username}`} />
   }
 }
 
