@@ -16,3 +16,9 @@
 .header-text {
   margin-left: 15px;
 }
+
+.footer {
+  position: fixed;
+  top: auto;
+  bottom: 0;
+}

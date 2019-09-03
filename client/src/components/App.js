@@ -83,6 +83,7 @@ class App extends Component {
         <div className="mdl-layout mdl-js-layout mdl-layout--fixed-header">
           <header className="mdl-layout__header">
                 <Navbar
+                className="Navbar"
                 loggedIn={loggedIn}
                 logout={(e) => this.logout(e)}
                 />
