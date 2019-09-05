@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import brain from '../images/strongbrain.jpg';
-import feelForm from '../images/feelform.jpg';
+import feelForm from '../images/feelform.png';
 
 class About extends Component {
 
