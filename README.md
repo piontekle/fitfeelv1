@@ -1,4 +1,4 @@
-# fitfeel
+# fitfeelv1
 SPA built to allow users to mentally check in before and after workouts. It can be as simple or as detailed as the user likes with pre-written selections and options to add more.
 
 # Getting Started
